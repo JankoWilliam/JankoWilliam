@@ -67,16 +67,23 @@
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/12/28/大数据003——nginx/">大数据003——nginx</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据003——nginx/" data-id="cjq7mtem40003sg4lk2b4o3p1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据003——nginx/" data-id="cjq7mwa460004wk4latsdrstr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <hr>
-<h2 id="title-大数据003——nginx"><a href="#title-大数据003——nginx" class="headerlink" title="title:大数据003——nginx"></a>title:大数据003——nginx</h2><h1 id="大数据003——nginx"><a href="#大数据003——nginx" class="headerlink" title="大数据003——nginx"></a>大数据003——nginx</h1><h2 id="1-虚拟主机"><a href="#1-虚拟主机" class="headerlink" title="1. 虚拟主机"></a>1. 虚拟主机</h2><p>虚拟主机是指在网络服务器上分出一定的磁盘空间，用户可以租用此部分空间，以供用户放置站点及应用组件，提供必要的数据存放和传输功能。</p>
+        <h1 id="大数据003——nginx"><a href="#大数据003——nginx" class="headerlink" title="大数据003——nginx"></a>大数据003——nginx</h1><h2 id="1-虚拟主机"><a href="#1-虚拟主机" class="headerlink" title="1. 虚拟主机"></a>1. 虚拟主机</h2><p>虚拟主机是指在网络服务器上分出一定的磁盘空间，用户可以租用此部分空间，以供用户放置站点及应用组件，提供必要的数据存放和传输功能。</p>
 <p>nginx可以配置基于域名和基于端口的虚拟主机：</p>
 <h3 id="1-1-基于域名的虚拟主机"><a href="#1-1-基于域名的虚拟主机" class="headerlink" title="1.1 基于域名的虚拟主机"></a>1.1 基于域名的虚拟主机</h3><p>编辑/usr/local/nginx/conf（注意是安装目录，非源码包目录）下的nginx.conf：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">http &#123; </span><br><span class="line">    upstream web01&#123; </span><br><span class="line">        server node02; </span><br><span class="line">	&#125; </span><br><span class="line">	upstream web02&#123; </span><br><span class="line">        server node03; </span><br><span class="line">     &#125; </span><br><span class="line"> server &#123; </span><br><span class="line">        listen 80; </span><br><span class="line">	//访问mydomain1.com的时候，会把请求导到web01的服务器组里</span><br><span class="line">	server_name  mydomain1.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://web01;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125; </span><br><span class="line">    server &#123; </span><br><span class="line">        listen 80; </span><br><span class="line">	//访问mydomain2.com的时候，会把请求导到web02的服务器组里</span><br><span class="line">	server_name  mydomain2.com; </span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://web02;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -146,16 +153,23 @@
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/12/28/大数据002——Linux、nginx/">大数据002——Linux、nginx</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据002——Linux、nginx/" data-id="cjq7mtem40002sg4lpvih64o4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据002——Linux、nginx/" data-id="cjq7mwa3x0002wk4lz501jzdk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <hr>
-<h2 id="title-大数据002——Linux、nginx"><a href="#title-大数据002——Linux、nginx" class="headerlink" title="title:大数据002——Linux、nginx"></a>title:大数据002——Linux、nginx</h2><h1 id="大数据002——Linux、nginx"><a href="#大数据002——Linux、nginx" class="headerlink" title="大数据002——Linux、nginx"></a>大数据002——Linux、nginx</h1><p>[TOC]</p>
+        <h1 id="大数据002——Linux、nginx"><a href="#大数据002——Linux、nginx" class="headerlink" title="大数据002——Linux、nginx"></a>大数据002——Linux、nginx</h1><p>[TOC]</p>
 <h2 id="1-服务操作"><a href="#1-服务操作" class="headerlink" title="1. 服务操作"></a>1. 服务操作</h2><p>列出所有服务：chkconfig；</p>
 <p>​    各数字代表的系统初始化级别含义：</p>
 <p>​        0：停机状态</p>
@@ -283,16 +297,23 @@
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/12/28/大数据004——Hadoop/">大数据004——Hadoop</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据004——Hadoop/" data-id="cjq7mtem40004sg4luq6skd0q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据004——Hadoop/" data-id="cjq7mwa420003wk4l9ld5hlzq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <hr>
-<h2 id="title-大数据004——Hadoop"><a href="#title-大数据004——Hadoop" class="headerlink" title="title:大数据004——Hadoop"></a>title:大数据004——Hadoop</h2><h1 id="大数据004——Hadoop"><a href="#大数据004——Hadoop" class="headerlink" title="大数据004——Hadoop"></a>大数据004——Hadoop</h1><h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>Hadoop是一个开源框架，它允许在整个集群使用简单编程模型计算机的分布式环境存储并处理大数据。它的目的是从单一的服务器到上千台机器的扩展，每一个台机都可以提供本地计算和存储。</p>
+        <h1 id="大数据004——Hadoop"><a href="#大数据004——Hadoop" class="headerlink" title="大数据004——Hadoop"></a>大数据004——Hadoop</h1><h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>Hadoop是一个开源框架，它允许在整个集群使用简单编程模型计算机的分布式环境存储并处理大数据。它的目的是从单一的服务器到上千台机器的扩展，每一个台机都可以提供本地计算和存储。</p>
 <h3 id="1-1-什么是大数据？"><a href="#1-1-什么是大数据？" class="headerlink" title="1.1 什么是大数据？"></a>1.1 什么是大数据？</h3><p>大数据是不能用传统的计算技术处理的大型数据集的集合。它不是一个单一的技术或工具，而是涉及的业务和技术的许多领域。大数据包含通过不同设备和应用程序所产生的数据。如这些领域：黑匣子数据、社会化媒体数据、证券交易所数据、电网数据、交通运输数据、搜索引擎数据等。</p>
 <p><strong>大数据技术</strong>：大数据技术旨在提供更准确的分析，这可以影响更多的具体决策导致更大的效率、降低成本、并减少了对业务的风险。为了充分利用大数据的力量，需要管理和处理实时结构化和非结构化的海量数据，可以保护数据隐私和安全的基础设施。</p>
 <p><strong>操作大数据</strong>：包括像MongoDB系统，提供业务实时的能力，主要工作是数据捕获和存储互动。NoSQL大数据体系的设计充分利用已经在过去的十年，而让大量的计算，以廉价，高效地运行新的云计算架构的优势。这使得运营大数据工作负载更容易管理，更便宜，更快的实现。一些NoSQL系统可以提供深入了解基于使用最少的编码无需数据科学家和额外的基础架构的实时数据模式。</p>
@@ -571,16 +592,23 @@
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/12/28/大数据001——Linux/">大数据001——Linux</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据001——Linux/" data-id="cjq7mtely0001sg4l7velp4f4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据001——Linux/" data-id="cjq7mwa3r0001wk4lbu14zm7e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <hr>
-<h2 id="title-大数据001——Linux"><a href="#title-大数据001——Linux" class="headerlink" title="title:大数据001——Linux"></a>title:大数据001——Linux</h2><h1 id="大数据001——Linux"><a href="#大数据001——Linux" class="headerlink" title="大数据001——Linux"></a>大数据001——Linux</h1><p>[TOC]</p>
+        <h1 id="大数据001——Linux"><a href="#大数据001——Linux" class="headerlink" title="大数据001——Linux"></a>大数据001——Linux</h1><p>[TOC]</p>
 <h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a>1. 环境准备</h2><h3 id="1-1-VMware"><a href="#1-1-VMware" class="headerlink" title="1.1 VMware"></a>1.1 VMware</h3><p>安装虚拟机VMware10。</p>
 <h3 id="1-2-Linux安装"><a href="#1-2-Linux安装" class="headerlink" title="1.2 Linux安装"></a>1.2 Linux安装</h3><p>安装CentOS6.6。</p>
 <h3 id="1-3-网络配置"><a href="#1-3-网络配置" class="headerlink" title="1.3 网络配置"></a>1.3 网络配置</h3><h4 id="1-3-1-查看虚拟机网关"><a href="#1-3-1-查看虚拟机网关" class="headerlink" title="1.3.1 查看虚拟机网关"></a>1.3.1 查看虚拟机网关</h4><p><img src="C:\Users\Administrator\Desktop\linux01.png" alt="linux01"></p>
@@ -732,7 +760,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/hello-world/" data-id="cjq7mteli0000sg4l85fx8klj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/hello-world/" data-id="cjq7mwa3f0000wk4lsg3rcc27" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -791,19 +819,19 @@
       <ul>
         
           <li>
-            <a href="/2018/12/28/大数据003——nginx/">(no title)</a>
+            <a href="/2018/12/28/大数据003——nginx/">大数据003——nginx</a>
           </li>
         
           <li>
-            <a href="/2018/12/28/大数据002——Linux、nginx/">(no title)</a>
+            <a href="/2018/12/28/大数据002——Linux、nginx/">大数据002——Linux、nginx</a>
           </li>
         
           <li>
-            <a href="/2018/12/28/大数据004——Hadoop/">(no title)</a>
+            <a href="/2018/12/28/大数据004——Hadoop/">大数据004——Hadoop</a>
           </li>
         
           <li>
-            <a href="/2018/12/28/大数据001——Linux/">(no title)</a>
+            <a href="/2018/12/28/大数据001——Linux/">大数据001——Linux</a>
           </li>
         
           <li>
