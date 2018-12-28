@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="通常情况下，在XML bean配置文件声明所有的Bean类或组件，这样Spring容器可以检测并注册Bean类或组件。 其实，Spring是能够自动扫描，检测和预定义的项目包并实例化bean，不再有繁琐的Bean类声明在XML文件中。
+1.  开启Spring自动扫描功能在bean配置文件中配置“c">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Spring自动组件扫描 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="通常情况下，在XML bean配置文件声明所有的Bean类或组件，这样Spring容器可以检测并注册Bean类或组件。 其实，Spring是能够自动扫描，检测和预定义的项目包并实例化bean，不再有繁琐的Bean类声明在XML文件中。 1.  开启Spring自动扫描功能在bean配置文件中配置“context:component”表亲啊，这意味着，在 Spring 中启用自动扫描功能。base-">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring自动组件扫描">
+<meta property="og:url" content="http://yoursite.com/2018/12/28/md_Spring总结/Spring自动组件扫描/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="通常情况下，在XML bean配置文件声明所有的Bean类或组件，这样Spring容器可以检测并注册Bean类或组件。 其实，Spring是能够自动扫描，检测和预定义的项目包并实例化bean，不再有繁琐的Bean类声明在XML文件中。 1.  开启Spring自动扫描功能在bean配置文件中配置“context:component”表亲啊，这意味着，在 Spring 中启用自动扫描功能。base-">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-28T07:42:17.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring自动组件扫描">
+<meta name="twitter:description" content="通常情况下，在XML bean配置文件声明所有的Bean类或组件，这样Spring容器可以检测并注册Bean类或组件。 其实，Spring是能够自动扫描，检测和预定义的项目包并实例化bean，不再有繁琐的Bean类声明在XML文件中。 1.  开启Spring自动扫描功能在bean配置文件中配置“context:component”表亲啊，这意味着，在 Spring 中启用自动扫描功能。base-">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Hexo" rel="home">Hexo</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-md_Spring总结/Spring自动组件扫描" class="post-md_Spring总结/Spring自动组件扫描 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Spring自动组件扫描
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/md_Spring总结/Spring自动组件扫描/" data-id="cjq7qfc82000l6o4lty8a5hhe" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>通常情况下，在XML bean配置文件声明所有的Bean类或组件，这样Spring容器可以检测并注册Bean类或组件。 其实，Spring是能够自动扫描，检测和预定义的项目包并实例化bean，不再有繁琐的Bean类声明在XML文件中。</p>
+<h2 id="1-开启Spring自动扫描功能"><a href="#1-开启Spring自动扫描功能" class="headerlink" title="1.  开启Spring自动扫描功能"></a>1.  开启Spring自动扫描功能</h2><p>在bean配置文件中配置“context:component”表亲啊，这意味着，在 Spring 中启用自动扫描功能。base-package 是指明存储组件，Spring将扫描该文件夹，并找出Bean(注解为@Component)并注册到 Spring 容器：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context/spring-context-2.5.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.myprj.customer"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-使用-Component注解"><a href="#2-使用-Component注解" class="headerlink" title="2.  使用@Component注解"></a>2.  使用@Component注解</h2><p>使用@Component注释来表示该类是一个自动扫描组件。</p>
+<h2 id="3-自定义自动扫描组件名称"><a href="#3-自定义自动扫描组件名称" class="headerlink" title="3.  自定义自动扫描组件名称"></a>3.  自定义自动扫描组件名称</h2><p>你可以这样创建自定义名称：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span>(<span class="string">"AAA"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerService</span> </span></span><br><span class="line"><span class="class">...</span></span><br></pre></td></tr></table></figure>
+<p>现在，可以用’AAA’这个名称进行检索。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CustomerService cust = (CustomerService)context.getBean(<span class="string">"AAA"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="4-自动组件扫描注释类型"><a href="#4-自动组件扫描注释类型" class="headerlink" title="4.  自动组件扫描注释类型"></a>4.  自动组件扫描注释类型</h2><p>在Spring2.5中，有4种类型的组件自动扫描注释类型</p>
+<ul>
+<li>@Component – 指示自动扫描组件。</li>
+<li>@Repository – 表示在持久层DAO组件。</li>
+<li>@Service – 表示在业务层服务组件。</li>
+<li>@Controller – 表示在表示层控制器组件。</li>
+</ul>
+<h2 id="5-Spring过滤器组件自动扫描"><a href="#5-Spring过滤器组件自动扫描" class="headerlink" title="5.  Spring过滤器组件自动扫描"></a>5.  Spring过滤器组件自动扫描</h2><h3 id="5-1-过滤组件-包含"><a href="#5-1-过滤组件-包含" class="headerlink" title="5.1  过滤组件 - 包含"></a>5.1  过滤组件 - 包含</h3><p>使用Spring “过滤” 扫描并注册匹配定义“regex”，即使该类组件的名称未标注 @Component 也能被注册到Spring容器中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.myprj"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">"regex"</span> </span></span><br><span class="line"><span class="tag">                      <span class="attr">expression</span>=<span class="string">"com.myprj.customer.dao.*DAO.*"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">"regex"</span> </span></span><br><span class="line"><span class="tag">                      <span class="attr">expression</span>=<span class="string">"com.myprj.customer.services.*Service.*"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这个XML过滤中，所有文件的名称中包含 DAO 或 Service(<em>DAO.</em>, <em>Services.</em>) 单词将被检测并在 Spring 容器中注册。</p>
+<h3 id="5-2-过滤组件-不包含"><a href="#5-2-过滤组件-不包含" class="headerlink" title="5.2  过滤组件 - 不包含"></a>5.2  过滤组件 - 不包含</h3><p>另外，您还可以排除指定组件，以避免 Spring 检测和 Spring 容器注册。</p>
+<p>如不包括在这些文件中标注有 @Service :</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.myprj.customer"</span> &gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> </span></span><br><span class="line"><span class="tag">			<span class="attr">expression</span>=<span class="string">"org.springframework.stereotype.Service"</span> /&gt;</span>		</span><br><span class="line">	<span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/12/28/md_Spring总结/Spring自动组件扫描/">
+    <time datetime="2018-12-28T07:31:49.261Z" class="entry-date">
+        2018-12-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2018/12/28/md_Spring总结/Spring自动封装Bean/" rel="next">Spring 自动封装Bean <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java设计模式/">Java设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring自动组件扫描/">Spring自动组件扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring自动封装Bean/">Spring 自动封装Bean</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring 依赖注入（DI）/">Spring 依赖注入（DI）</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring xml 配置详解/">Spring xml 配置详解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring JavaConfig实例/">Spring JavaConfig实例</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java设计模式/">Java设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web前端/">Web前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handlebarsJS/">handlebarsJS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AOP/" style="font-size: 12.5px;">AOP</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Java设计模式/" style="font-size: 10px;">Java设计模式</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/Spring/" style="font-size: 20px;">Spring</a> <a href="/tags/Web前端/" style="font-size: 10px;">Web前端</a> <a href="/tags/handlebarsJS/" style="font-size: 10px;">handlebarsJS</a> <a href="/tags/大数据/" style="font-size: 17.5px;">大数据</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 John Doe
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

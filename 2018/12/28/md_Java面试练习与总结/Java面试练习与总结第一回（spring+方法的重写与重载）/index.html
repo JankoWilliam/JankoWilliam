@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。
+1.SpringMVC的常用注解
+@RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Java面试练习与总结第一回（spring+方法的重写与重载） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。 1.SpringMVC的常用注解 @RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；属性：  value：指定请求的实际 url； method：指定请求的me">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试练习与总结第一回（spring+方法的重写与重载）">
+<meta property="og:url" content="http://yoursite.com/2018/12/28/md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。 1.SpringMVC的常用注解 @RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；属性：  value：指定请求的实际 url； method：指定请求的me">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-28T07:44:08.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试练习与总结第一回（spring+方法的重写与重载）">
+<meta name="twitter:description" content="临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。 1.SpringMVC的常用注解 @RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；属性：  value：指定请求的实际 url； method：指定请求的me">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Hexo" rel="home">Hexo</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）" class="post-md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载） post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Java面试练习与总结第一回（spring+方法的重写与重载）
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）/" data-id="cjq7qfc8t00146o4lp2793ot0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><strong>临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。</strong></p>
+<h3 id="1-SpringMVC的常用注解"><a href="#1-SpringMVC的常用注解" class="headerlink" title="1.SpringMVC的常用注解"></a>1.SpringMVC的常用注解</h3><ul>
+<li>@RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；<pre><code>属性：
+</code></pre><ul>
+<li>value：指定请求的实际 url；</li>
+<li>method：指定请求的method类型（get、post、put、delete）；</li>
+<li>params：指定Request中必须包含的参数，该请求才生效；</li>
+<li>header：指定Request的请求体中必须某些header的值，该请求才生效；</li>
+<li>consumes：指定Request请求提交的内容类型（如：application/Json，text/html）；</li>
+<li>produces: 指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回。</li>
+</ul>
+</li>
+<li>@RequestParam：绑定单个请求参数值，request.getParameter(“xxx”)；<pre><code>属性：
+</code></pre><ul>
+<li>value：参数名称；</li>
+<li>required：是否必须，默认true，表示请求中必须包含该参数，否则抛出异常；</li>
+<li>defaultValue：默认值，指定请求中没有该参数时的值，此属性使得required的值改为false；</li>
+</ul>
+</li>
+<li>@PathVariable：绑定URI地址上的路径变量；<pre><code>属性：
+</code></pre><ul>
+<li>value：参数值；</li>
+<li>required：是否必须；</li>
+</ul>
+</li>
+<li>@ResponseBody：作用于Controller层的方法之上，可以整个返回结果以某种格式返回，如Json、text；</li>
+<li>@ModelAttribute：被注释的参数或方法添加到Model中，当注释在方法时，请求处理方法Action会将该方法变成一个非请求处理的方法，但其它Action被调用时会首先调用该方法；</li>
+<li>@SessionAttributes：注释在类上，可以将指定属性值存到Session作用域中；</li>
+<li>@CookieValue：获取Cookie中的值；</li>
+<li>@GetMapping：是一个组合注解，是@RequestMapping(method = RequestMethod.GET)的缩写。该注解将HTTP Get 映射到 特定的处理方法上；</li>
+<li>@PostMapping：与上同理；</li>
+<li>@PutMapping：与上同理；</li>
+<li>@DeleteMapping：与上同理；</li>
+<li>@JsonFormate：将json、xml转换成Java对象，出自于Jackson；</li>
+<li>@DateTimeFormat：是spring自带的处理框架，主要用于将时间格式化；</li>
+<li>@JSONField：来源于fastjson，是阿里巴巴的开源框架，主要进行JSON解析和序列化。<h3 id="2-简述对Spring-IoC的理解"><a href="#2-简述对Spring-IoC的理解" class="headerlink" title="2. 简述对Spring IoC的理解"></a>2. 简述对Spring IoC的理解</h3><strong>IoC:Inversion of Control，即“控制反转”，是一种设计思想，在Java设计开发中，IoC意味着将对象的设计交给容器控制。</strong></li>
+<li><strong>为什么有IoC容器？Spring框架至于Java Bean的管理，是典型的工厂设计模式，而创建Bean的Factory就是IoC容器；所以IoC容器的出现为开发者提供了更多的便利和基础服务；</strong></li>
+<li><strong>什么是IoC？IoC是一种设计思想，主要是为了完成对象的创建和依赖的管理注入。</strong></li>
+<li><strong>IoC技术实现原理？我们都知道IoC既是生成Bean的工厂，而要知道工厂是如何产生对象的，我们需要看具体的IOC容器实现，spring提供了许多IOC容器的实现。比如XmlBeanFactory，ClasspathXmlApplicationContext等。</strong></li>
+<li><strong>IoC和DI之间的关系？DI—Dependency Injection，即“依赖注入”，IoC通过DI动态的向某个对象提供它所需要的其他对象。</strong><h3 id="3-方法的重载与方法的重写"><a href="#3-方法的重载与方法的重写" class="headerlink" title="3. 方法的重载与方法的重写"></a>3. 方法的重载与方法的重写</h3></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>区别</th>
+<th>重载</th>
+<th>重写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>英文名</td>
+<td>Overloading</td>
+<td>Overiding</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>同一类</td>
+<td>不同类（继承关系）</td>
+</tr>
+<tr>
+<td>方法名</td>
+<td>相同</td>
+<td>相同</td>
+</tr>
+<tr>
+<td>参数列表</td>
+<td>不同</td>
+<td>相同</td>
+</tr>
+<tr>
+<td>修饰符</td>
+<td>无关</td>
+<td>大于或等于父类</td>
+</tr>
+<tr>
+<td>返回值类型</td>
+<td>不同</td>
+<td>相同（或小于父类）</td>
+</tr>
+<tr>
+<td>面向对象思想</td>
+<td>多态</td>
+<td>继承</td>
+</tr>
+<tr>
+<td>抛出父类没有的异常</td>
+<td>可以</td>
+<td>不可以</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/12/28/md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）/">
+    <time datetime="2018-12-28T07:31:49.098Z" class="entry-date">
+        2018-12-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/12/28/md_Java面试练习与总结/Java面试练习与总结第二回（SpringMVC）/" rel="prev"><span class="meta-nav">←</span> Java面试练习与总结第二回（SpringMVC）</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/12/28/md_Java面试练习与总结/Java与设计模式一/" rel="next">Java面试练习与总结 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java设计模式/">Java设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring自动组件扫描/">Spring自动组件扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring自动封装Bean/">Spring 自动封装Bean</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring 依赖注入（DI）/">Spring 依赖注入（DI）</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring xml 配置详解/">Spring xml 配置详解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/md_Spring总结/Spring JavaConfig实例/">Spring JavaConfig实例</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java设计模式/">Java设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web前端/">Web前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handlebarsJS/">handlebarsJS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AOP/" style="font-size: 12.5px;">AOP</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Java设计模式/" style="font-size: 10px;">Java设计模式</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/Spring/" style="font-size: 20px;">Spring</a> <a href="/tags/Web前端/" style="font-size: 10px;">Web前端</a> <a href="/tags/handlebarsJS/" style="font-size: 10px;">handlebarsJS</a> <a href="/tags/大数据/" style="font-size: 17.5px;">大数据</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 John Doe
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
