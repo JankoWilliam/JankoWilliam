@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="大数据003——nginx1. 虚拟主机虚拟主机是指在网络服务器上分出一定的磁盘空间，用户可以租用此部分空间，以供用户放置站点及应用组件，提供必要的数据存放和传输功能。
+nginx可以配置基于域名和基于端口的虚拟主机：
+1.1 基于域名的虚拟主机编辑/usr/local/nginx/conf（注意是">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大数据003——nginx1. 虚拟主机虚拟主机是指在网络服务器上分出一定的磁盘空间，用户可以租用此部分空间，以供用户放置站点及应用组件，提供必要的数据存放和传输功能。 nginx可以配置基于域名和基于端口的虚拟主机： 1.1 基于域名的虚拟主机编辑/usr/local/nginx/conf（注意是安装目录，非源码包目录）下的nginx.conf： 123456789101112131415161">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/12/28/大数据003——nginx/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="大数据003——nginx1. 虚拟主机虚拟主机是指在网络服务器上分出一定的磁盘空间，用户可以租用此部分空间，以供用户放置站点及应用组件，提供必要的数据存放和传输功能。 nginx可以配置基于域名和基于端口的虚拟主机： 1.1 基于域名的虚拟主机编辑/usr/local/nginx/conf（注意是安装目录，非源码包目录）下的nginx.conf： 123456789101112131415161">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/linux00301.PNG">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/linux00302.PNG">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/linux00303.PNG">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/linux00304.PNG">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/linux00305.PNG">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/linux00306.PNG">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/linux00307.PNG">
+<meta property="og:updated_time" content="2018-12-20T12:55:24.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="大数据003——nginx1. 虚拟主机虚拟主机是指在网络服务器上分出一定的磁盘空间，用户可以租用此部分空间，以供用户放置站点及应用组件，提供必要的数据存放和传输功能。 nginx可以配置基于域名和基于端口的虚拟主机： 1.1 基于域名的虚拟主机编辑/usr/local/nginx/conf（注意是安装目录，非源码包目录）下的nginx.conf： 123456789101112131415161">
+<meta name="twitter:image" content="c:/Users/Administrator/Desktop/linux00301.PNG">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Hexo" rel="home">Hexo</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-大数据003——nginx" class="post-大数据003——nginx post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据003——nginx/" data-id="cjq7mhn7r0003r84lbl6iwx2e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="大数据003——nginx"><a href="#大数据003——nginx" class="headerlink" title="大数据003——nginx"></a>大数据003——nginx</h1><h2 id="1-虚拟主机"><a href="#1-虚拟主机" class="headerlink" title="1. 虚拟主机"></a>1. 虚拟主机</h2><p>虚拟主机是指在网络服务器上分出一定的磁盘空间，用户可以租用此部分空间，以供用户放置站点及应用组件，提供必要的数据存放和传输功能。</p>
+<p>nginx可以配置基于域名和基于端口的虚拟主机：</p>
+<h3 id="1-1-基于域名的虚拟主机"><a href="#1-1-基于域名的虚拟主机" class="headerlink" title="1.1 基于域名的虚拟主机"></a>1.1 基于域名的虚拟主机</h3><p>编辑/usr/local/nginx/conf（注意是安装目录，非源码包目录）下的nginx.conf：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">http &#123; </span><br><span class="line">    upstream web01&#123; </span><br><span class="line">        server node02; </span><br><span class="line">	&#125; </span><br><span class="line">	upstream web02&#123; </span><br><span class="line">        server node03; </span><br><span class="line">     &#125; </span><br><span class="line"> server &#123; </span><br><span class="line">        listen 80; </span><br><span class="line">	//访问mydomain1.com的时候，会把请求导到web01的服务器组里</span><br><span class="line">	server_name  mydomain1.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://web01;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125; </span><br><span class="line">    server &#123; </span><br><span class="line">        listen 80; </span><br><span class="line">	//访问mydomain2.com的时候，会把请求导到web02的服务器组里</span><br><span class="line">	server_name  mydomain2.com; </span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://web02;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于域名的虚拟机主机 在模拟应用场景时，需要在windows系统的hosts文件里配置域名映射。</p>
+<p>编辑C:\Windows\System32\drivers\etc\下的hosts文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.142.11 mydomain1.com</span><br><span class="line">192.168.142.11 mydomain2.com</span><br></pre></td></tr></table></figure>
+<p>注意：已在Linux虚拟机端/etc/下的hosts编辑：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.142.11 node01</span><br><span class="line">192.168.142.12 node02</span><br><span class="line">192.168.142.13 node03</span><br></pre></td></tr></table></figure>
+<p>启动nginx后，分别访问mydomain1.com ,mydomain2.com：</p>
+<p><img src="C:\Users\Administrator\Desktop\linux00301.PNG" alt="linux00301"></p>
+<p><img src="C:\Users\Administrator\Desktop\linux00302.PNG" alt="linux00302"></p>
+<h3 id="1-2-基于端口的虚拟主机"><a href="#1-2-基于端口的虚拟主机" class="headerlink" title="1.2 基于端口的虚拟主机"></a>1.2 基于端口的虚拟主机</h3><p>编辑/usr/local/nginx/conf（注意是安装目录，非源码包目录）下的nginx.conf：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">http &#123; </span><br><span class="line">    upstream web01&#123;  </span><br><span class="line">        server node02; </span><br><span class="line">	&#125; </span><br><span class="line">	upstream web02&#123; </span><br><span class="line">        server node03</span><br><span class="line">    &#125; </span><br><span class="line"> server &#123; </span><br><span class="line"><span class="comment">//当访问nginx的80端口时，将请求导给bjsxt组</span></span><br><span class="line">        listen <span class="number">81</span>; </span><br><span class="line">        server_name localhost;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http:<span class="comment">//web01;</span></span><br><span class="line">        &#125;</span><br><span class="line">	&#125; </span><br><span class="line">server &#123; </span><br><span class="line"> <span class="comment">//当访问nginx的81端口时，将请求导给shsxt组</span></span><br><span class="line">        listen <span class="number">82</span>; </span><br><span class="line">        server_name localhost;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http:<span class="comment">//web02;</span></span><br><span class="line">        &#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动nginx后，分别访问192.168.142.11（nginx服务器IP，也即node01）的81端口和82端口：</p>
+<p><img src="C:\Users\Administrator\Desktop\linux00303.PNG" alt="linux00303"></p>
+<p><img src="C:\Users\Administrator\Desktop\linux00304.PNG" alt="linux00304"></p>
+<h3 id="1-3-正向代理和反向代理"><a href="#1-3-正向代理和反向代理" class="headerlink" title="1.3 正向代理和反向代理"></a>1.3 正向代理和反向代理</h3><p>请自行理解。</p>
+<h3 id="1-4-Nginx的session的一致性问题"><a href="#1-4-Nginx的session的一致性问题" class="headerlink" title="1.4 Nginx的session的一致性问题"></a>1.4 Nginx的session的一致性问题</h3><h4 id="1-Session一致性解决方案"><a href="#1-Session一致性解决方案" class="headerlink" title="1. Session一致性解决方案"></a>1. Session一致性解决方案</h4><p>a. session复制, tomcat 本身带有复制session的功能。</p>
+<p>b. 共享session,  需要专门管理session的软件，memcached 缓存服务，可以和tomcat整合，帮助tomcat共享管理session。</p>
+<h4 id="2-安装memcached"><a href="#2-安装memcached" class="headerlink" title="2. 安装memcached"></a>2. 安装memcached</h4><ul>
+<li><p>安装memcached内存数据库</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install memcached</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>web服务器连接memcached的jar包拷贝到tomcat的lib，本文用的是Tomcat7对应的jar包：</p>
+<p><img src="C:\Users\Administrator\Desktop\linux00305.PNG" alt="linux00305"></p>
+</li>
+</ul>
+<p><img src="C:\Users\Administrator\Desktop\linux00306.PNG" alt="linux00306"></p>
+<ul>
+<li>配置tomcat的conf目录下的context.xml：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"de.javakaffee.web.msm.MemcachedBackupSessionManager"</span></span></span><br><span class="line">    &lt;!--memcached所在虚拟机IP--&gt;</span><br><span class="line">    memcachedNodes="n1:192.168.xxx.xxx:11211"</span><br><span class="line">    sticky="true"</span><br><span class="line">    lockingMode="auto"</span><br><span class="line">    sessionBackupAsync="false"</span><br><span class="line">   requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"</span><br><span class="line">sessionBackupTimeout="1000" transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory" /&gt;</span><br></pre></td></tr></table></figure>
+<p>配置memcachedNodes属性，配置memcached数据库的ip和端口，默认11211，多个的话用逗号隔开。目的是为了让tomcat服务器从memcached缓存里面拿session或者是放session。</p>
+<ul>
+<li><p>修改index.jsp，取sessionid看一看：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span>  <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">SessionID:<span class="tag">&lt;<span class="name">%=session.getId()%</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line">SessionIP:<span class="tag">&lt;<span class="name">%=request.getServerName()%</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>tomcat1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动memcached：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">memcached -d -m <span class="number">128</span>m -p <span class="number">11211</span> -l <span class="number">192</span>.<span class="number">168</span>.xxx.xxx -u root -P /tmp/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>访问不同Tomcat服务器：</p>
+<p><img src="C:\Users\Administrator\Desktop\linux00307.PNG" alt="linux00307"></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/12/28/大数据003——nginx/">
+    <time datetime="2018-12-28T05:53:59.855Z" class="entry-date">
+        2018-12-28
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2018/12/28/大数据002——Linux、nginx/" rel="next">(no title) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/28/大数据003——nginx/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/大数据002——Linux、nginx/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/大数据004——Hadoop/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/大数据001——Linux/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/28/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 John Doe
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
