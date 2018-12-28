@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="[TOC]
-1. 服务操作列出所有服务：chkconfig；
+  <meta name="description" content="1. 服务操作列出所有服务：chkconfig；
 ​    各数字代表的系统初始化级别含义：
 ​        0：停机状态
 　　1：单用户模式，root账户进行操作
 　　2：多用户，不能使用net file system，一般很少用
-　　3：完全多用户，一部分启动，一部分不启动，命令行">
+　　3：完全多用户，一部分启动，一部分不启动，命令行界面
+　　4">
   
 
   
@@ -21,19 +21,19 @@
   
   <title>大数据002——Linux、nginx | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图">
+  <meta name="description" content="1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。">
 <meta name="keywords" content="Linux,大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据002——Linux、nginx">
 <meta property="og:url" content="http://yoursite.com/2018/12/28/大数据/大数据002——Linux、nginx/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图">
+<meta property="og:description" content="1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/1545143397652.png">
-<meta property="og:updated_time" content="2018-12-28T06:28:02.761Z">
+<meta property="og:updated_time" content="2018-12-28T06:45:54.391Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据002——Linux、nginx">
-<meta name="twitter:description" content="[TOC] 1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图">
+<meta name="twitter:description" content="1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。">
 <meta name="twitter:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/1545143397652.png">
   
   
@@ -90,14 +90,13 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据/大数据002——Linux、nginx/" data-id="cjq7nonmc0003cg4lr0szbhjz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/28/大数据/大数据002——Linux、nginx/" data-id="cjq7obz170003gc4li9ctycsa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>[TOC]</p>
-<h2 id="1-服务操作"><a href="#1-服务操作" class="headerlink" title="1. 服务操作"></a>1. 服务操作</h2><p>列出所有服务：chkconfig；</p>
+        <h2 id="1-服务操作"><a href="#1-服务操作" class="headerlink" title="1. 服务操作"></a>1. 服务操作</h2><p>列出所有服务：chkconfig；</p>
 <p>​    各数字代表的系统初始化级别含义：</p>
 <p>​        0：停机状态</p>
 <p>　　1：单用户模式，root账户进行操作</p>
@@ -211,7 +210,7 @@
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/大数据/">大数据</a>
   </div>
 
     
@@ -255,7 +254,7 @@
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a><span class="category-list-count">4</span></li></ul>
     </div>
   </aside>
 
@@ -265,10 +264,6 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
-        
-          <li>
-            <a href="/2018/12/28/大数据004——Hadoop/">大数据004——Hadoop</a>
-          </li>
         
           <li>
             <a href="/2018/12/28/大数据/大数据003——nginx/">大数据003——nginx</a>
@@ -295,7 +290,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </aside>
 
