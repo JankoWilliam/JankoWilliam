@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java面试练习与总结,Java,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="伯纳乌VS斯坦普斯" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。 1.SpringMVC的常用注解 @RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；  属性：  value：指定请求的实际 url； method：指定请求的">
+<meta name="keywords" content="Java面试练习与总结,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试练习与总结第一回（spring+方法的重写与重载）">
+<meta property="og:url" content="http://yoursite.com/2015/10/23/md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）/index.html">
+<meta property="og:site_name" content="伯纳乌VS斯坦普斯">
+<meta property="og:description" content="临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。 1.SpringMVC的常用注解 @RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；  属性：  value：指定请求的实际 url； method：指定请求的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-30T12:40:44.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试练习与总结第一回（spring+方法的重写与重载）">
+<meta name="twitter:description" content="临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。 1.SpringMVC的常用注解 @RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；  属性：  value：指定请求的实际 url； method：指定请求的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'JankoWilliam'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/23/md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）/">
+
+
+
+
+
+  <title>Java面试练习与总结第一回（spring+方法的重写与重载） | 伯纳乌VS斯坦普斯</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">伯纳乌VS斯坦普斯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap" style="width: 710px;">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/23/md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JankoWilliam">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/h01.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="伯纳乌VS斯坦普斯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java面试练习与总结第一回（spring+方法的重写与重载）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-23T11:01:45+08:00">
+                2015-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/10/23/md_Java面试练习与总结/Java面试练习与总结第一回（spring+方法的重写与重载）/" class="leancloud_visitors" data-flag-title="Java面试练习与总结第一回（spring+方法的重写与重载）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  879
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>临近Java面试的练习与总结，范围可由JavaSE到数据库、Web前端再到JavaEE初级、各类框架、Linux系统等方面，包含知识点和疑难问题点，系列连载发文，可供求职者参阅。</strong></p>
+<h3 id="1-SpringMVC的常用注解"><a href="#1-SpringMVC的常用注解" class="headerlink" title="1.SpringMVC的常用注解"></a>1.SpringMVC的常用注解</h3><ul>
+<li><p>@RequestMapping：处理请求地址映射的注解，常用在类和方法上，若用在类上表示作为类中方法的父路径；<br>  属性：</p>
+<ul>
+<li>value：指定请求的实际 url；</li>
+<li>method：指定请求的method类型（get、post、put、delete）；</li>
+<li>params：指定Request中必须包含的参数，该请求才生效；</li>
+<li>header：指定Request的请求体中必须某些header的值，该请求才生效；</li>
+<li>consumes：指定Request请求提交的内容类型（如：application/Json，text/html）；</li>
+<li><p>produces: 指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回。</p>
+<a id="more"></a></li>
+</ul>
+</li>
+<li>@RequestParam：绑定单个请求参数值，request.getParameter(“xxx”)；<br>  属性：<ul>
+<li>value：参数名称；</li>
+<li>required：是否必须，默认true，表示请求中必须包含该参数，否则抛出异常；</li>
+<li>defaultValue：默认值，指定请求中没有该参数时的值，此属性使得required的值改为false；</li>
+</ul>
+</li>
+<li>@PathVariable：绑定URI地址上的路径变量；<br>  属性：<ul>
+<li>value：参数值；</li>
+<li>required：是否必须；</li>
+</ul>
+</li>
+<li>@ResponseBody：作用于Controller层的方法之上，可以整个返回结果以某种格式返回，如Json、text；</li>
+<li>@ModelAttribute：被注释的参数或方法添加到Model中，当注释在方法时，请求处理方法Action会将该方法变成一个非请求处理的方法，但其它Action被调用时会首先调用该方法；</li>
+<li>@SessionAttributes：注释在类上，可以将指定属性值存到Session作用域中；</li>
+<li>@CookieValue：获取Cookie中的值；</li>
+<li>@GetMapping：是一个组合注解，是@RequestMapping(method = RequestMethod.GET)的缩写。该注解将HTTP Get 映射到 特定的处理方法上；</li>
+<li>@PostMapping：与上同理；</li>
+<li>@PutMapping：与上同理；</li>
+<li>@DeleteMapping：与上同理；</li>
+<li>@JsonFormate：将json、xml转换成Java对象，出自于Jackson；</li>
+<li>@DateTimeFormat：是spring自带的处理框架，主要用于将时间格式化；</li>
+<li>@JSONField：来源于fastjson，是阿里巴巴的开源框架，主要进行JSON解析和序列化。<h3 id="2-简述对Spring-IoC的理解"><a href="#2-简述对Spring-IoC的理解" class="headerlink" title="2. 简述对Spring IoC的理解"></a>2. 简述对Spring IoC的理解</h3><strong>IoC:Inversion of Control，即“控制反转”，是一种设计思想，在Java设计开发中，IoC意味着将对象的设计交给容器控制。</strong></li>
+<li><strong>为什么有IoC容器？Spring框架至于Java Bean的管理，是典型的工厂设计模式，而创建Bean的Factory就是IoC容器；所以IoC容器的出现为开发者提供了更多的便利和基础服务；</strong></li>
+<li><strong>什么是IoC？IoC是一种设计思想，主要是为了完成对象的创建和依赖的管理注入。</strong></li>
+<li><strong>IoC技术实现原理？我们都知道IoC既是生成Bean的工厂，而要知道工厂是如何产生对象的，我们需要看具体的IOC容器实现，spring提供了许多IOC容器的实现。比如XmlBeanFactory，ClasspathXmlApplicationContext等。</strong></li>
+<li><strong>IoC和DI之间的关系？DI—Dependency Injection，即“依赖注入”，IoC通过DI动态的向某个对象提供它所需要的其他对象。</strong><h3 id="3-方法的重载与方法的重写"><a href="#3-方法的重载与方法的重写" class="headerlink" title="3. 方法的重载与方法的重写"></a>3. 方法的重载与方法的重写</h3></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>区别</th>
+<th>重载</th>
+<th>重写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>英文名</td>
+<td>Overloading</td>
+<td>Overiding</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>同一类</td>
+<td>不同类（继承关系）</td>
+</tr>
+<tr>
+<td>方法名</td>
+<td>相同</td>
+<td>相同</td>
+</tr>
+<tr>
+<td>参数列表</td>
+<td>不同</td>
+<td>相同</td>
+</tr>
+<tr>
+<td>修饰符</td>
+<td>无关</td>
+<td>大于或等于父类</td>
+</tr>
+<tr>
+<td>返回值类型</td>
+<td>不同</td>
+<td>相同（或小于父类）</td>
+</tr>
+<tr>
+<td>面向对象思想</td>
+<td>多态</td>
+<td>继承</td>
+</tr>
+<tr>
+<td>抛出父类没有的异常</td>
+<td>可以</td>
+<td>不可以</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="JankoWilliam wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java面试练习与总结/" rel="tag"># Java面试练习与总结</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/18/md_Web前端/Web页面分页显示+局部刷新/" rel="next" title="Web页面分页展示+局部刷新">
+                <i class="fa fa-chevron-left"></i> Web页面分页展示+局部刷新
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/23/md_Java面试练习与总结/Java面试练习与总结第二回（SpringMVC）/" rel="prev" title="Java面试练习与总结第二回（SpringMVC）">
+                Java面试练习与总结第二回（SpringMVC） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/h01.jpg" alt="JankoWilliam">
+            
+              <p class="site-author-name" itemprop="name">JankoWilliam</p>
+              <p class="site-description motion-element" itemprop="description">曼巴崛起！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/JankoWilliam" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/sinat_34045444" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-SpringMVC的常用注解"><span class="nav-number">1.</span> <span class="nav-text">1.SpringMVC的常用注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-简述对Spring-IoC的理解"><span class="nav-number">2.</span> <span class="nav-text">2. 简述对Spring IoC的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-方法的重载与方法的重写"><span class="nav-number">3.</span> <span class="nav-text">3. 方法的重载与方法的重写</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JankoWilliam</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+  <span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共29.8k字</span>
+</div>
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+	
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("48IBTTuYH5YHCmQtmovrrgPK-gzGzoHsz", "JvMb3JejwCm1CHqSPvgKDpft");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
