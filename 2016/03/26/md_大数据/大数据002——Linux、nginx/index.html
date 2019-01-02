@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
 <meta property="og:description" content="1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/1545143397652.png">
-<meta property="og:updated_time" content="2018-12-30T12:37:44.757Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181218224924188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzM0MDQ1NDQ0,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-01-02T09:46:42.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据002——Linux、nginx">
 <meta name="twitter:description" content="1. 服务操作列出所有服务：chkconfig； ​    各数字代表的系统初始化级别含义： ​        0：停机状态 　　1：单用户模式，root账户进行操作 　　2：多用户，不能使用net file system，一般很少用 　　3：完全多用户，一部分启动，一部分不启动，命令行界面 　　4：未使用、未定义的保留模式 　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。">
-<meta name="twitter:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/1545143397652.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181218224924188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzM0MDQ1NDQ0,size_16,color_FFFFFF,t_70">
 
 
 
@@ -493,7 +493,7 @@
 <li><p>启动，停止，重新装载：service nginx start|stop；</p>
 </li>
 <li><p>本地物理机访问：IP地址+80端口，出现如下界面：</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1545143397652.png" alt="1545143397652"></p>
+<p><img src="https://img-blog.csdnimg.cn/20181218224924188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzM0MDQ1NDQ0,size_16,color_FFFFFF,t_70" alt="å¨è¿éæå¥å¾çæè¿°"></p>
 </li>
 </ol>
 <h3 id="6-3-Nginx默认配置详解"><a href="#6-3-Nginx默认配置详解" class="headerlink" title="6.3 Nginx默认配置详解"></a>6.3 Nginx默认配置详解</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#进程数，建议设置和CPU个数一样或<span class="number">2</span>倍</span><br><span class="line">worker_processes  <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">#日志级别</span><br><span class="line">error_log  logs/error.log  warning;(默认error级别)</span><br><span class="line"></span><br><span class="line"># nginx 启动后的pid 存放位置</span><br><span class="line">#pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	#配置每个进程的连接数，总的连接数= worker_processes * worker_connections</span><br><span class="line">    #默认<span class="number">1024</span></span><br><span class="line">    worker_connections  <span class="number">10240</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">#连接超时时间，单位秒</span><br><span class="line">keepalive_timeout  <span class="number">65</span>;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  localhost                 </span><br><span class="line">        #默认请求</span><br><span class="line">  		location / &#123;</span><br><span class="line">    				 root  html;   #定义服务器的默认网站根目录位置</span><br><span class="line">   				  index  index.php index.html index.htm;  #定义首页索引文件的名称</span><br><span class="line">        &#125;</span><br><span class="line">	    #定义错误提示页面</span><br><span class="line">        error_page   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /<span class="number">50</span>x.html;</span><br><span class="line">        location = /<span class="number">50</span>x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -653,7 +653,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -664,7 +664,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -675,7 +675,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -769,7 +769,7 @@
   <span class="post-meta-divider">|</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共30.1k字</span>
+  <span class="post-count">博客全站共39.1k字</span>
 </div>
 
   <span class="post-meta-divider">|</span>
