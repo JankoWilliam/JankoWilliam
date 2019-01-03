@@ -1485,7 +1485,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/md_Spring总结/Spring Bean基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JankoWilliam">
@@ -1504,7 +1504,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/10/28/md_Spring总结/Spring Bean基础/" itemprop="url">Spring Bean基础</a></h1>
+                <a class="post-title-link" href="/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/" itemprop="url">Spring AOP+AspectJ注解实例</a></h1>
         
 
         <div class="post-meta">
@@ -1556,7 +1556,7 @@
 
           
           
-             <span id="/2015/10/28/md_Spring总结/Spring Bean基础/" class="leancloud_visitors" data-flag-title="Spring Bean基础">
+             <span id="/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/" class="leancloud_visitors" data-flag-title="Spring AOP+AspectJ注解实例">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1581,7 +1581,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.8k
+                  1.4k
                 </span>
               
 
@@ -1597,7 +1597,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13
+                  7
                 </span>
               
             </div>
@@ -1619,13 +1619,20 @@
 
       
         
-          <h2 id="一、Spring-Bean引用例子"><a href="#一、Spring-Bean引用例子" class="headerlink" title="一、Spring Bean引用例子"></a>一、Spring Bean引用例子</h2><h3 id="1-Bean在不同的XML-文件"><a href="#1-Bean在不同的XML-文件" class="headerlink" title="1. Bean在不同的XML 文件"></a>1. Bean在不同的XML 文件</h3><p>如果实在不同的XML配置文件中的Bean，可以用一个<ref>标签，“bean”属性引用它：</ref></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"OutputHelper"</span> <span class="attr">class</span>=<span class="string">"com.myprj.output.OutputHelper"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"outputGenerator"</span> &gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"CsvOutputGenerator"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-在同一个XML文件中的Bean"><a href="#2-在同一个XML文件中的Bean" class="headerlink" title="2. 在同一个XML文件中的Bean"></a>2. 在同一个XML文件中的Bean</h3><p>如果引用在同一个XML文件中的bean，你可以用 ‘ref’ 标签，“local”属性引用它，使用时常省略。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ref</span> <span class="attr">local</span>=<span class="string">"someBean"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+          <p>本文展示如何将AspectJ注解集成到Spring AOP框架。在这个Spring AOP+ AspectJ 示例中，让您轻松实现拦截方法。</p>
+<p>常见AspectJ的注解：</p>
+<ol>
+<li>@Before – 方法执行前运行</li>
+<li>@After – 运行在方法返回结果后</li>
+<li>@AfterReturning – 运行在方法返回一个结果后，在拦截器返回结果。</li>
+<li>@AfterThrowing – 运行方法在抛出异常后，</li>
+<li>@Around – 围绕方法执行运行，结合以上这三个通知。</li>
+</ol>
+<p>注意</p>
+<p>Spring AOP 中没有 AspectJ 支持，请阅读前文AOP面向切面编程。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/10/28/md_Spring总结/Spring Bean基础/#more" rel="contents">
+            <a class="btn" href="/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1878,7 +1885,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/md_Spring总结/Spring Bean基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JankoWilliam">
@@ -1897,7 +1904,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/" itemprop="url">Spring AOP+AspectJ注解实例</a></h1>
+                <a class="post-title-link" href="/2015/10/28/md_Spring总结/Spring Bean基础/" itemprop="url">Spring Bean基础</a></h1>
         
 
         <div class="post-meta">
@@ -1949,7 +1956,7 @@
 
           
           
-             <span id="/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/" class="leancloud_visitors" data-flag-title="Spring AOP+AspectJ注解实例">
+             <span id="/2015/10/28/md_Spring总结/Spring Bean基础/" class="leancloud_visitors" data-flag-title="Spring Bean基础">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1974,7 +1981,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  2.8k
                 </span>
               
 
@@ -1990,7 +1997,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  13
                 </span>
               
             </div>
@@ -2012,20 +2019,13 @@
 
       
         
-          <p>本文展示如何将AspectJ注解集成到Spring AOP框架。在这个Spring AOP+ AspectJ 示例中，让您轻松实现拦截方法。</p>
-<p>常见AspectJ的注解：</p>
-<ol>
-<li>@Before – 方法执行前运行</li>
-<li>@After – 运行在方法返回结果后</li>
-<li>@AfterReturning – 运行在方法返回一个结果后，在拦截器返回结果。</li>
-<li>@AfterThrowing – 运行方法在抛出异常后，</li>
-<li>@Around – 围绕方法执行运行，结合以上这三个通知。</li>
-</ol>
-<p>注意</p>
-<p>Spring AOP 中没有 AspectJ 支持，请阅读前文AOP面向切面编程。</p>
+          <h2 id="一、Spring-Bean引用例子"><a href="#一、Spring-Bean引用例子" class="headerlink" title="一、Spring Bean引用例子"></a>一、Spring Bean引用例子</h2><h3 id="1-Bean在不同的XML-文件"><a href="#1-Bean在不同的XML-文件" class="headerlink" title="1. Bean在不同的XML 文件"></a>1. Bean在不同的XML 文件</h3><p>如果实在不同的XML配置文件中的Bean，可以用一个<ref>标签，“bean”属性引用它：</ref></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"OutputHelper"</span> <span class="attr">class</span>=<span class="string">"com.myprj.output.OutputHelper"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"outputGenerator"</span> &gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"CsvOutputGenerator"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-在同一个XML文件中的Bean"><a href="#2-在同一个XML文件中的Bean" class="headerlink" title="2. 在同一个XML文件中的Bean"></a>2. 在同一个XML文件中的Bean</h3><p>如果引用在同一个XML文件中的bean，你可以用 ‘ref’ 标签，“local”属性引用它，使用时常省略。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ref</span> <span class="attr">local</span>=<span class="string">"someBean"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/10/28/md_Spring总结/Spring AOP+AspectJ注解实例/#more" rel="contents">
+            <a class="btn" href="/2015/10/28/md_Spring总结/Spring Bean基础/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
