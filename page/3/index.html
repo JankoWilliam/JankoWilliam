@@ -310,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/md_Spring总结/Java Web工程中的web.xml配置文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/md_Spring总结/AOP面向切面编程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JankoWilliam">
@@ -329,7 +329,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/10/28/md_Spring总结/Java Web工程中的web.xml配置文件/" itemprop="url">Java Web工程中的web.xml配置文件</a></h1>
+                <a class="post-title-link" href="/2015/10/28/md_Spring总结/AOP面向切面编程/" itemprop="url">AOP面向切面编程</a></h1>
         
 
         <div class="post-meta">
@@ -381,7 +381,7 @@
 
           
           
-             <span id="/2015/10/28/md_Spring总结/Java Web工程中的web.xml配置文件/" class="leancloud_visitors" data-flag-title="Java Web工程中的web.xml配置文件">
+             <span id="/2015/10/28/md_Spring总结/AOP面向切面编程/" class="leancloud_visitors" data-flag-title="AOP面向切面编程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.2k
+                  2.1k
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  15
+                  10
                 </span>
               
             </div>
@@ -444,18 +444,19 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="1-xml文件"><a href="#1-xml文件" class="headerlink" title="1. xml文件"></a>1. xml文件</h3><p>xml文件：Extentsible Markup Language即可扩展标记语言，是用来定义其它语言的一种元语言，其前身是SGML(标准通用标记语言)。xml文件是互联网数据传输的重要工具，因为不受编程语言和操作系统的限制，所以可以跨越互联网的任何平台，非常适合Web传输。XML提供统一的方法来描述和交换独立于应用程序或供应商的结构化数据。我们都知道xml文件的一些规则：</p>
+          <p>Spring AOP(面向切面编程)框架，用于在模块化方面的横切关注点。简单得说，它只是一个拦截器拦截一些过程，例如，当一个方法执行，Spring AOP 可以劫持一个执行的方法，在方法执行之前或之后添加额外的功能。</p>
+<p>在Spring AOP中，有 4 种类型通知(advices)的支持：</p>
 <ul>
-<li><p>xml声明一般是xml文档的第一行：\&lt;?xml version=”1.0” encoding=”UTF-8”?>；</p>
+<li><p>通知(Advice)之前 - 该方法执行前运行</p>
 </li>
-<li><p>xml必须有且只有一个根节点，对大小写敏感，标签成对出现，标签不嵌套，但内部元素需要正确嵌套；</p>
+<li><p>通知(Advice)返回之后 – 运行后，该方法返回一个结果</p>
 </li>
-<li><p>属性值用双引号包裹；一个元素可以有多个属性，它的基本格式为：&lt;元素名 属性名=“属性值” 属性名=“属性值”&gt;;</p>
+<li><p>通知(Advice)抛出之后 – 运行方法抛出异常后，</p>
 </li>
-<li><p>有效的（valid）xml文档：首先xml文档是个格式正规的xml文档，然后又需要满足DTD的要求，这样的xml文档称为有效的xml文档。</p>
+<li><p>环绕通知 – 环绕方法执行运行，结合以上这三个通知。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/10/28/md_Spring总结/Java Web工程中的web.xml配置文件/#more" rel="contents">
+            <a class="btn" href="/2015/10/28/md_Spring总结/AOP面向切面编程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
