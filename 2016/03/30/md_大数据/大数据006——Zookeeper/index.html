@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1.  前言1.1 Zookeeper简介2. Zookeeper安装部署注：windows下zookeeper集群搭建请参考:Zookeeper 在Windows下的安装过程及测试。 3. Zookeeper基础命令3.1 配置Zookeeper环境变量，方便指令操作1[root@node01 ~]# vim ~/.bash_profile 在后面添加： 12export ZOOKEEPER_H">
+<meta name="description" content="1.  前言1.1 Zookeeper简介">
 <meta name="keywords" content="Linux,大数据,Zookeeper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大数据005——Zookeeper">
+<meta property="og:title" content="大数据006——Zookeeper">
 <meta property="og:url" content="http://yoursite.com/2016/03/30/md_大数据/大数据006——Zookeeper/index.html">
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
-<meta property="og:description" content="1.  前言1.1 Zookeeper简介2. Zookeeper安装部署注：windows下zookeeper集群搭建请参考:Zookeeper 在Windows下的安装过程及测试。 3. Zookeeper基础命令3.1 配置Zookeeper环境变量，方便指令操作1[root@node01 ~]# vim ~/.bash_profile 在后面添加： 12export ZOOKEEPER_H">
+<meta property="og:description" content="1.  前言1.1 Zookeeper简介">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-05T01:16:48.836Z">
+<meta property="og:updated_time" content="2019-01-05T04:22:44.934Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大数据005——Zookeeper">
-<meta name="twitter:description" content="1.  前言1.1 Zookeeper简介2. Zookeeper安装部署注：windows下zookeeper集群搭建请参考:Zookeeper 在Windows下的安装过程及测试。 3. Zookeeper基础命令3.1 配置Zookeeper环境变量，方便指令操作1[root@node01 ~]# vim ~/.bash_profile 在后面添加： 12export ZOOKEEPER_H">
+<meta name="twitter:title" content="大数据006——Zookeeper">
+<meta name="twitter:description" content="1.  前言1.1 Zookeeper简介">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>大数据005——Zookeeper | 伯纳乌VS斯坦普斯</title>
+  <title>大数据006——Zookeeper | 伯纳乌VS斯坦普斯</title>
   
 
 
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">大数据005——Zookeeper</h1>
+          <h1 class="post-title" itemprop="name headline">大数据006——Zookeeper</h1>
         
 
         <div class="post-meta">
@@ -379,7 +379,7 @@
 
           
           
-             <span id="/2016/03/30/md_大数据/大数据006——Zookeeper/" class="leancloud_visitors" data-flag-title="大数据005——Zookeeper">
+             <span id="/2016/03/30/md_大数据/大数据006——Zookeeper/" class="leancloud_visitors" data-flag-title="大数据006——Zookeeper">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -441,7 +441,8 @@
       
 
       
-        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><h2 id="2-Zookeeper安装部署"><a href="#2-Zookeeper安装部署" class="headerlink" title="2. Zookeeper安装部署"></a>2. Zookeeper安装部署</h2><p>注：windows下zookeeper集群搭建请参考:<a href="https://blog.csdn.net/qiunian144084/article/details/79192819" target="_blank" rel="noopener">Zookeeper 在Windows下的安装过程及测试</a>。</p>
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><a id="more"></a>
+<h2 id="2-Zookeeper安装部署"><a href="#2-Zookeeper安装部署" class="headerlink" title="2. Zookeeper安装部署"></a>2. Zookeeper安装部署</h2><p>注：windows下zookeeper集群搭建请参考:<a href="https://blog.csdn.net/qiunian144084/article/details/79192819" target="_blank" rel="noopener">Zookeeper 在Windows下的安装过程及测试</a>。</p>
 <h2 id="3-Zookeeper基础命令"><a href="#3-Zookeeper基础命令" class="headerlink" title="3. Zookeeper基础命令"></a>3. Zookeeper基础命令</h2><h3 id="3-1-配置Zookeeper环境变量，方便指令操作"><a href="#3-1-配置Zookeeper环境变量，方便指令操作" class="headerlink" title="3.1 配置Zookeeper环境变量，方便指令操作"></a>3.1 配置Zookeeper环境变量，方便指令操作</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>在后面添加：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ZOOKEEPER_HOME=/usr/zookeeper-<span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span> #这里修改为zookeeper根目录</span><br><span class="line"><span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$ZOOKEEPER_HOME/bin</span><br></pre></td></tr></table></figure>

@@ -90,7 +90,7 @@
 <meta property="og:description" content="HDFS即可作为Hadoop集群的一部分，也可以作为一个独立的分布式文件系统。上一小节实现了Hadoop安装，伪分布式搭建HDFS，这一小节使用完全分布式搭建Hadoop-HDFS系统。 1. 环境准备1.1 JDK安装并配置环境变量1echo $JAVA_HOME    #查看JDK环境变量 1.2 准备至少3台Linux虚拟机、通过VMware的克隆虚拟机功能；配置好网络JDK 时间 host">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="c:/Users/JankoWilliam/AppData/Roaming/Typora/typora-user-images/1546613446192.png">
-<meta property="og:updated_time" content="2019-01-04T14:52:37.444Z">
+<meta property="og:updated_time" content="2019-01-05T04:22:32.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据005——HDFS1.0">
 <meta name="twitter:description" content="HDFS即可作为Hadoop集群的一部分，也可以作为一个独立的分布式文件系统。上一小节实现了Hadoop安装，伪分布式搭建HDFS，这一小节使用完全分布式搭建Hadoop-HDFS系统。 1. 环境准备1.1 JDK安装并配置环境变量1echo $JAVA_HOME    #查看JDK环境变量 1.2 准备至少3台Linux虚拟机、通过VMware的克隆虚拟机功能；配置好网络JDK 时间 host">
@@ -446,6 +446,7 @@
         <p>HDFS即可作为Hadoop集群的一部分，也可以作为一个独立的分布式文件系统。上一小节实现了Hadoop安装，伪分布式搭建HDFS，这一小节使用完全分布式搭建Hadoop-HDFS系统。</p>
 <h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a>1. 环境准备</h2><h3 id="1-1-JDK安装并配置环境变量"><a href="#1-1-JDK安装并配置环境变量" class="headerlink" title="1.1 JDK安装并配置环境变量"></a>1.1 JDK安装并配置环境变量</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $JAVA_HOME    #查看JDK环境变量</span><br></pre></td></tr></table></figure>
 <h3 id="1-2-准备至少3台Linux虚拟机、"><a href="#1-2-准备至少3台Linux虚拟机、" class="headerlink" title="1.2 准备至少3台Linux虚拟机、"></a>1.2 准备至少3台Linux虚拟机、</h3><p>通过VMware的克隆虚拟机功能；配置好网络JDK 时间 hosts，保证节点间能互ping通，这里配置了host：node01、node02、node03。</p>
+<a id="more"></a>
 <h3 id="1-3-时间同步"><a href="#1-3-时间同步" class="headerlink" title="1.3 时间同步"></a>1.3 时间同步</h3><p>查看之前小节。</p>
 <h3 id="1-4-ssh免秘钥登录"><a href="#1-4-ssh免秘钥登录" class="headerlink" title="1.4 ssh免秘钥登录"></a>1.4 ssh免秘钥登录</h3><p>查看之前小节。</p>
 <h2 id="2-完全分布式搭建"><a href="#2-完全分布式搭建" class="headerlink" title="2. 完全分布式搭建"></a>2. 完全分布式搭建</h2><h3 id="2-1-下载解压缩Hadoop"><a href="#2-1-下载解压缩Hadoop" class="headerlink" title="2.1 下载解压缩Hadoop"></a>2.1 下载解压缩Hadoop</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-<span class="number">2</span>.<span class="number">6</span>.<span class="number">5</span>.tar.gz</span><br></pre></td></tr></table></figure>
@@ -536,8 +537,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/30/md_大数据/大数据006——Zookeeper/" rel="prev" title="大数据005——Zookeeper">
-                大数据005——Zookeeper <i class="fa fa-chevron-right"></i>
+              <a href="/2016/03/30/md_大数据/大数据006——Zookeeper/" rel="prev" title="大数据006——Zookeeper">
+                大数据006——Zookeeper <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
