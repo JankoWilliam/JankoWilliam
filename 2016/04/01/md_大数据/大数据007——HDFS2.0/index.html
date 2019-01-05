@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1. Hadoop 2.01.1 hadoop1.0于hadoop2.0的区别1）. 从整体框架来说 ​    a. hadoop1.0即第一代hadoop，由分布式">
+<meta name="description" content="1. Hadoop 2.01.1 Hadoop1.0于Hadoop2.0的区别1）.  从整体框架来说 ​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。 ​    b. Hadoop2.0">
 <meta name="keywords" content="Linux,大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据007——HDFS2.0">
 <meta property="og:url" content="http://yoursite.com/2016/04/01/md_大数据/大数据007——HDFS2.0/index.html">
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
-<meta property="og:description" content="1. Hadoop 2.01.1 hadoop1.0于hadoop2.0的区别1）. 从整体框架来说 ​    a. hadoop1.0即第一代hadoop，由分布式">
+<meta property="og:description" content="1. Hadoop 2.01.1 Hadoop1.0于Hadoop2.0的区别1）.  从整体框架来说 ​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。 ​    b. Hadoop2.0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-05T13:17:48.405Z">
+<meta property="og:updated_time" content="2019-01-05T13:31:30.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据007——HDFS2.0">
-<meta name="twitter:description" content="1. Hadoop 2.01.1 hadoop1.0于hadoop2.0的区别1）. 从整体框架来说 ​    a. hadoop1.0即第一代hadoop，由分布式">
+<meta name="twitter:description" content="1. Hadoop 2.01.1 Hadoop1.0于Hadoop2.0的区别1）.  从整体框架来说 ​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。 ​    b. Hadoop2.0">
 
 
 
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  43
+                  235
                 </span>
               
 
@@ -451,9 +451,11 @@
       
 
       
-        <h2 id="1-Hadoop-2-0"><a href="#1-Hadoop-2-0" class="headerlink" title="1. Hadoop 2.0"></a>1. Hadoop 2.0</h2><h3 id="1-1-hadoop1-0于hadoop2-0的区别"><a href="#1-1-hadoop1-0于hadoop2-0的区别" class="headerlink" title="1.1 hadoop1.0于hadoop2.0的区别"></a>1.1 hadoop1.0于hadoop2.0的区别</h3><p><strong>1）. 从整体框架来说</strong></p>
-<p>​    a. hadoop1.0即第一代hadoop，由分布式</p>
+        <h2 id="1-Hadoop-2-0"><a href="#1-Hadoop-2-0" class="headerlink" title="1. Hadoop 2.0"></a>1. Hadoop 2.0</h2><h3 id="1-1-Hadoop1-0于Hadoop2-0的区别"><a href="#1-1-Hadoop1-0于Hadoop2-0的区别" class="headerlink" title="1.1 Hadoop1.0于Hadoop2.0的区别"></a>1.1 Hadoop1.0于Hadoop2.0的区别</h3><p><strong>1）.  从整体框架来说</strong></p>
+<p>​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。</p>
+<p>​    b. Hadoop2.0即第二代Hadoop，内核主要由HDFS、MapReduce和YARN三个系统组成，其中YARN是一个资源管理系统，负责集群资源管理和调度，MapReduce则是运行在YARN上的离线处理框架，它与Hadoop 1.0中的MapReduce在编程模型（新旧API）和数据处理引擎（MapTask和ReduceTask）两个方面是相同的。针对Hadoop1.0单NameNode制约HDFS的扩展性问题，提出HDFS Federation（联盟），它让多个NameNode分管不同的目录进而实现访问隔离和横向扩展，同时彻底解决了NameNode单点故障问题</p>
 <a id="more"></a>
+<p><strong>2）. 从MapReduce计算框架来说</strong></p>
 <h2 id="2-HDFS-2-0-HA高可用"><a href="#2-HDFS-2-0-HA高可用" class="headerlink" title="2. HDFS 2.0 HA高可用"></a>2. HDFS 2.0 HA高可用</h2><h2 id="3-Hadoop2-X-HA搭建"><a href="#3-Hadoop2-X-HA搭建" class="headerlink" title="3. Hadoop2.X HA搭建"></a>3. Hadoop2.X HA搭建</h2>
       
     </div>
@@ -679,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Hadoop-2-0"><span class="nav-number">1.</span> <span class="nav-text">1. Hadoop 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-hadoop1-0于hadoop2-0的区别"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 hadoop1.0于hadoop2.0的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HDFS-2-0-HA高可用"><span class="nav-number">2.</span> <span class="nav-text">2. HDFS 2.0 HA高可用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Hadoop2-X-HA搭建"><span class="nav-number">3.</span> <span class="nav-text">3. Hadoop2.X HA搭建</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Hadoop-2-0"><span class="nav-number">1.</span> <span class="nav-text">1. Hadoop 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Hadoop1-0于Hadoop2-0的区别"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Hadoop1.0于Hadoop2.0的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HDFS-2-0-HA高可用"><span class="nav-number">2.</span> <span class="nav-text">2. HDFS 2.0 HA高可用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Hadoop2-X-HA搭建"><span class="nav-number">3.</span> <span class="nav-text">3. Hadoop2.X HA搭建</span></a></li></ol></div>
             
 
           </div>
@@ -717,7 +719,7 @@
   <span class="post-meta-divider">|</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共42.2k字</span>
+  <span class="post-count">博客全站共42.4k字</span>
 </div>
 
   <span class="post-meta-divider">|</span>
