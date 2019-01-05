@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,大数据,Zookeeper,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="伯纳乌VS斯坦普斯" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1.  前言1.1 Zookeeper简介2. Zookeeper安装部署注：windows下zookeeper集群搭建请参考:Zookeeper 在Windows下的安装过程及测试。 3. Zookeeper基础命令3.1 配置Zookeeper环境变量，方便指令操作1[root@node01 ~]# vim ~/.bash_profile 在后面添加： 12export ZOOKEEPER_H">
+<meta name="keywords" content="Linux,大数据,Zookeeper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据005——Zookeeper">
+<meta property="og:url" content="http://yoursite.com/2016/03/30/md_大数据/大数据006——Zookeeper/index.html">
+<meta property="og:site_name" content="伯纳乌VS斯坦普斯">
+<meta property="og:description" content="1.  前言1.1 Zookeeper简介2. Zookeeper安装部署注：windows下zookeeper集群搭建请参考:Zookeeper 在Windows下的安装过程及测试。 3. Zookeeper基础命令3.1 配置Zookeeper环境变量，方便指令操作1[root@node01 ~]# vim ~/.bash_profile 在后面添加： 12export ZOOKEEPER_H">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-05T01:16:48.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大数据005——Zookeeper">
+<meta name="twitter:description" content="1.  前言1.1 Zookeeper简介2. Zookeeper安装部署注：windows下zookeeper集群搭建请参考:Zookeeper 在Windows下的安装过程及测试。 3. Zookeeper基础命令3.1 配置Zookeeper环境变量，方便指令操作1[root@node01 ~]# vim ~/.bash_profile 在后面添加： 12export ZOOKEEPER_H">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'JankoWilliam'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/30/md_大数据/大数据006——Zookeeper/">
+
+
+
+
+
+  <title>大数据005——Zookeeper | 伯纳乌VS斯坦普斯</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">伯纳乌VS斯坦普斯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/30/md_大数据/大数据006——Zookeeper/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JankoWilliam">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/h01.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="伯纳乌VS斯坦普斯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">大数据005——Zookeeper</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-30T11:01:45+08:00">
+                2016-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/03/30/md_大数据/大数据006——Zookeeper/" class="leancloud_visitors" data-flag-title="大数据005——Zookeeper">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><h2 id="2-Zookeeper安装部署"><a href="#2-Zookeeper安装部署" class="headerlink" title="2. Zookeeper安装部署"></a>2. Zookeeper安装部署</h2><p>注：windows下zookeeper集群搭建请参考:<a href="https://blog.csdn.net/qiunian144084/article/details/79192819" target="_blank" rel="noopener">Zookeeper 在Windows下的安装过程及测试</a>。</p>
+<h2 id="3-Zookeeper基础命令"><a href="#3-Zookeeper基础命令" class="headerlink" title="3. Zookeeper基础命令"></a>3. Zookeeper基础命令</h2><h3 id="3-1-配置Zookeeper环境变量，方便指令操作"><a href="#3-1-配置Zookeeper环境变量，方便指令操作" class="headerlink" title="3.1 配置Zookeeper环境变量，方便指令操作"></a>3.1 配置Zookeeper环境变量，方便指令操作</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>在后面添加：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ZOOKEEPER_HOME=/usr/zookeeper-<span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span> #这里修改为zookeeper根目录</span><br><span class="line"><span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$ZOOKEEPER_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>然后重新加载环境变量：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>查看zookeeper环境变量是否配置成功，任意目录下输入z，按Tab键：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# z</span><br><span class="line">zcat          zdiff         zegrep        zforce        zic           zkCli.<span class="built_in">cmd</span>     zkEnv.<span class="built_in">cmd</span>     zkServer.<span class="built_in">cmd</span>  zless         znew          </span><br><span class="line">zcmp          zdump         zfgrep        zgrep         zkCleanup.sh  zkCli.sh     zkEnv.sh      zkServer.sh   zmore         zsoelim</span><br></pre></td></tr></table></figure>
+<p>会提示出zookeeper的所有指令。</p>
+<h3 id="3-2-基础命令操作"><a href="#3-2-基础命令操作" class="headerlink" title="3.2 基础命令操作"></a>3.2 基础命令操作</h3><ul>
+<li>启动zk服务：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# zkServer.sh <span class="built_in">start</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# zkServer.sh <span class="built_in">start</span></span><br><span class="line">JMX enabled by default</span><br><span class="line">Using config: /usr/zookeeper-<span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span>/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看zk运行状态：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# zkServer.sh status</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# zkServer.sh status</span><br><span class="line">JMX enabled by default</span><br><span class="line">Using config: /usr/zookeeper-<span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span>/bin/../conf/zoo.cfg</span><br><span class="line"><span class="function">Mode: <span class="title">follower</span>    #这里显示的状态为跟随者，用于接收客户端请求并向客户端返回结果，在选主过程中参与投票</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止zk服务：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# zkServer.sh stop</span><br></pre></td></tr></table></figure>
+<ul>
+<li>客户端连接zk:</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# zkCli.sh</span><br><span class="line">......</span><br><span class="line"><span class="function">WATCHER::</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">WatchedEvent</span> <span class="title">state:SyncConnected</span> <span class="title">type:None</span> <span class="title">path:null</span></span></span><br><span class="line"><span class="function">[<span class="title">zk</span>: <span class="title">localhost</span>:2181(<span class="title">CONNECTED</span>) 0]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>help 查看客户端帮助命令：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">0</span>] <span class="built_in">help</span> </span><br><span class="line">ZooKeeper -server host:port <span class="built_in">cmd</span> args</span><br><span class="line">	stat <span class="built_in">path</span> [watch]</span><br><span class="line">	<span class="built_in">set</span> <span class="built_in">path</span> data [version]</span><br><span class="line">	ls <span class="built_in">path</span> [watch]</span><br><span class="line">	delquota [-n|-b] <span class="built_in">path</span></span><br><span class="line">	ls2 <span class="built_in">path</span> [watch]</span><br><span class="line">	setAcl <span class="built_in">path</span> acl</span><br><span class="line">	setquota -n|-b val <span class="built_in">path</span></span><br><span class="line">	history </span><br><span class="line">	redo cmdno</span><br><span class="line">	printwatches on|off</span><br><span class="line">	delete <span class="built_in">path</span> [version]</span><br><span class="line">	sync <span class="built_in">path</span></span><br><span class="line">	listquota <span class="built_in">path</span></span><br><span class="line">	rmr <span class="built_in">path</span></span><br><span class="line">	get <span class="built_in">path</span> [watch]</span><br><span class="line">	create [-s] [-e] <span class="built_in">path</span> data acl</span><br><span class="line">	addauth scheme auth</span><br><span class="line">	quit </span><br><span class="line">	getAcl <span class="built_in">path</span></span><br><span class="line">	close </span><br><span class="line">	connect host:port</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ls：查看目录命令（mynode和hadoop-ha是我测试集群创建的节点，默认只有一个zookeeper节点）</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">0</span>] ls /</span><br><span class="line">[mynode, zookeeper, hadoop-ha]</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">1</span>] ls /zookeeper</span><br><span class="line">[quota]</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">2</span>] ls /zookeeper/quota</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>get： 获取节点数据和更新信息</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">3</span>] get /zookeeper   #下面空行说明节点内容为空</span><br><span class="line"></span><br><span class="line">cZxid = <span class="number">0</span>x0                                 #创建节点的id</span><br><span class="line">ctime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span>  		#节点的创建时间</span><br><span class="line">mZxid = <span class="number">0</span>x0									#修改节点的id</span><br><span class="line">mtime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span>		#修改节点的时间</span><br><span class="line">pZxid = <span class="number">0</span>x0									#子节点的id</span><br><span class="line">cversion = -<span class="number">1</span>								#子节点的版本</span><br><span class="line">dataVersion = <span class="number">0</span>								#当前节点数据的版本</span><br><span class="line">aclVersion = <span class="number">0</span>								#权限的版本</span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0						#判断是否是临时节点</span><br><span class="line">dataLength = <span class="number">0</span>								#数据的长度</span><br><span class="line">numChildren = <span class="number">1</span>								#子节点的数量</span><br></pre></td></tr></table></figure>
+<ul>
+<li>stat ：获得节点的更新信息</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">3</span>] get /zookeeper  #下面空行说明节点内容为空</span><br><span class="line"></span><br><span class="line">cZxid = <span class="number">0</span>x0</span><br><span class="line">ctime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span></span><br><span class="line">mZxid = <span class="number">0</span>x0</span><br><span class="line">mtime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span></span><br><span class="line">pZxid = <span class="number">0</span>x0</span><br><span class="line">cversion = -<span class="number">1</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">0</span></span><br><span class="line">numChildren = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>stat：获得节点的更新信息</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">0</span>] stat /zookeeper</span><br><span class="line">cZxid = <span class="number">0</span>x0</span><br><span class="line">ctime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span></span><br><span class="line">mZxid = <span class="number">0</span>x0</span><br><span class="line">mtime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span></span><br><span class="line">pZxid = <span class="number">0</span>x0</span><br><span class="line">cversion = -<span class="number">1</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">0</span></span><br><span class="line">numChildren = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>ls2：ls命令和stat命令的整合</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">1</span>] ls2 /zookeeper</span><br><span class="line">[quota]</span><br><span class="line">cZxid = <span class="number">0</span>x0</span><br><span class="line">ctime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span></span><br><span class="line">mZxid = <span class="number">0</span>x0</span><br><span class="line">mtime = Thu Jan <span class="number">01</span> <span class="number">08</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1970</span></span><br><span class="line">pZxid = <span class="number">0</span>x0</span><br><span class="line">cversion = -<span class="number">1</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">0</span></span><br><span class="line">numChildren = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>create：创建节点</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create [-s] [-e] <span class="built_in">path</span> data acl 			#语法格式</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">13</span>] create /testnode HelloZookeeper </span><br><span class="line">Created /testnode</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">14</span>] get /testnode</span><br><span class="line">HelloZookeeper</span><br><span class="line">cZxid = <span class="number">0</span>x200000012</span><br><span class="line">ctime = Fri Jan <span class="number">04</span> <span class="number">18</span>:<span class="number">55</span>:<span class="number">06</span> CST <span class="number">2019</span></span><br><span class="line">mZxid = <span class="number">0</span>x200000012</span><br><span class="line">mtime = Fri Jan <span class="number">04</span> <span class="number">18</span>:<span class="number">55</span>:<span class="number">06</span> CST <span class="number">2019</span></span><br><span class="line">pZxid = <span class="number">0</span>x200000012</span><br><span class="line">cversion = <span class="number">0</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">14</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>create -e：创建临时节点</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#创建临时节点</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">0</span>] delete /testnode/temp</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">1</span>] create -e /testnode/temp tempdata</span><br><span class="line">Created /testnode/temp</span><br><span class="line">#断开连接</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">2</span>] quit</span><br><span class="line">Quitting...</span><br><span class="line"><span class="number">2019</span>-<span class="number">01</span>-<span class="number">04</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">59</span>,<span class="number">261</span> [myid:] - INFO  [main-EventThread:ClientCnxn$EventThread@<span class="number">512</span>] - EventThread shut down</span><br><span class="line"><span class="number">2019</span>-<span class="number">01</span>-<span class="number">04</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">59</span>,<span class="number">261</span> [myid:] - INFO  [main:ZooKeeper@<span class="number">684</span>] - Session: <span class="number">0</span>x1681843584f0007 closed</span><br><span class="line">[root@node01 ~]# zkCli.sh</span><br><span class="line">Connecting to localhost:<span class="number">2181</span></span><br><span class="line">......</span><br><span class="line"><span class="function">WATCHER::</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">WatchedEvent</span> <span class="title">state:SyncConnected</span> <span class="title">type:None</span> <span class="title">path:null</span></span></span><br><span class="line"><span class="function">#断开重连之后，临时节点自动消失</span></span><br><span class="line"><span class="function">[<span class="title">zk</span>: <span class="title">localhost</span>:2181(<span class="title">CONNECTED</span>) 0] <span class="title">ls</span> /<span class="title">testnode</span>   </span></span><br><span class="line"><span class="function">[]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>create -s：创建顺序节点 自动累加</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 创建顺序节点，顺序节点会自动累加</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">1</span>] create -s /testnode/sec secdata</span><br><span class="line">Created /testnode/sec0000000001</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">2</span>] create -s /testnode/sec secdata</span><br><span class="line">Created /testnode/sec0000000002</span><br></pre></td></tr></table></figure>
+<ul>
+<li>set：修改节点</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="built_in">path</span> data [version] 			#语法格式</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">9</span>] get /mynode</span><br><span class="line"><span class="number">123456</span>aaaaaa</span><br><span class="line">cZxid = <span class="number">0</span>x200000002</span><br><span class="line">ctime = Fri Jan <span class="number">04</span> <span class="number">17</span>:<span class="number">54</span>:<span class="number">16</span> CST <span class="number">2019</span></span><br><span class="line">mZxid = <span class="number">0</span>x200000002</span><br><span class="line">mtime = Fri Jan <span class="number">04</span> <span class="number">17</span>:<span class="number">54</span>:<span class="number">16</span> CST <span class="number">2019</span></span><br><span class="line">pZxid = <span class="number">0</span>x20000001f</span><br><span class="line">cversion = <span class="number">6</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">12</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br><span class="line"># 修改节点内容为 newdata</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">10</span>] <span class="built_in">set</span> /mynode newdata</span><br><span class="line">cZxid = <span class="number">0</span>x200000002</span><br><span class="line">ctime = Fri Jan <span class="number">04</span> <span class="number">17</span>:<span class="number">54</span>:<span class="number">16</span> CST <span class="number">2019</span></span><br><span class="line">mZxid = <span class="number">0</span>x200000020</span><br><span class="line">mtime = Fri Jan <span class="number">04</span> <span class="number">19</span>:<span class="number">09</span>:<span class="number">13</span> CST <span class="number">2019</span></span><br><span class="line">pZxid = <span class="number">0</span>x20000001f</span><br><span class="line">cversion = <span class="number">6</span></span><br><span class="line">dataVersion = <span class="number">1</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">7</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br><span class="line">#再次查询，节点内容已经修改</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">11</span>] get /mynode</span><br><span class="line">newdata</span><br><span class="line">cZxid = <span class="number">0</span>x200000002</span><br><span class="line">ctime = Fri Jan <span class="number">04</span> <span class="number">17</span>:<span class="number">54</span>:<span class="number">16</span> CST <span class="number">2019</span></span><br><span class="line">mZxid = <span class="number">0</span>x200000020</span><br><span class="line">mtime = Fri Jan <span class="number">04</span> <span class="number">19</span>:<span class="number">09</span>:<span class="number">13</span> CST <span class="number">2019</span></span><br><span class="line">pZxid = <span class="number">0</span>x20000001f</span><br><span class="line">cversion = <span class="number">6</span></span><br><span class="line">dataVersion = <span class="number">1</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">7</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br><span class="line">#<span class="built_in">set</span> 根据版本号更新 dataVersion 乐观锁（注意请从<span class="number">1</span>开始设置）</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">15</span>] <span class="built_in">set</span> /mynode newdata02 <span class="number">1</span></span><br><span class="line">cZxid = <span class="number">0</span>x200000002</span><br><span class="line">ctime = Fri Jan <span class="number">04</span> <span class="number">17</span>:<span class="number">54</span>:<span class="number">16</span> CST <span class="number">2019</span></span><br><span class="line">mZxid = <span class="number">0</span>x200000024</span><br><span class="line">mtime = Fri Jan <span class="number">04</span> <span class="number">19</span>:<span class="number">12</span>:<span class="number">27</span> CST <span class="number">2019</span></span><br><span class="line">pZxid = <span class="number">0</span>x20000001f</span><br><span class="line">cversion = <span class="number">6</span></span><br><span class="line">dataVersion = <span class="number">2</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">9</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br><span class="line">#因为数据的版本号已经修改为<span class="number">2</span> 再次使用版本号<span class="number">1</span>修改节点提交错误</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">16</span>] <span class="built_in">set</span> /mynode newdata02 <span class="number">1</span></span><br><span class="line">version No is <span class="keyword">not</span> valid : /mynode</span><br></pre></td></tr></table></figure>
+<ul>
+<li>delete：删除节点</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete <span class="built_in">path</span> [version] 			#语法格式</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">17</span>] delete /testnode</span><br><span class="line">Node <span class="keyword">not</span> empty: /testnode		#拥有子节点，请先删除子节点</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">18</span>] delete /testnode/sec0000000001</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">19</span>] delete /testnode/sec0000000002</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">22</span>] delete /testnode/sec0000000003</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">23</span>] delete /testnode</span><br></pre></td></tr></table></figure>
+<ul>
+<li>watcher通知机制</li>
+</ul>
+<p>关于watcher机制大体的理解可以为，当每个节点发生变化，都会触发watcher事件，类似于mysql的触发器。zk中 watcher是一次性的，触发后立即销毁。</p>
+<p>—stat path [watch] 设置watch事件 ；</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">24</span>] stat /testwatch watch</span><br><span class="line">Node does <span class="keyword">not</span> <span class="keyword">exist</span>: /testwatch</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">25</span>] create /testwatch test  </span><br><span class="line"></span><br><span class="line"><span class="function">WATCHER::</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">WatchedEvent</span> <span class="title">state:SyncConnected</span> <span class="title">type:NodeCreated</span> <span class="title">path</span>:/<span class="title">testwatch</span></span></span><br><span class="line"><span class="function"><span class="title">Created</span> /<span class="title">testwatch</span></span></span><br></pre></td></tr></table></figure>
+<p>—get path [watch]设置watch事件 ；</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">27</span>] create /testwatch2 aaa</span><br><span class="line">Created /testwatch2</span><br><span class="line">#使用get命令添加watch事件</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">28</span>] get /testwatch2 watch</span><br><span class="line">aaa</span><br><span class="line">cZxid = <span class="number">0</span>x20000002d</span><br><span class="line">ctime = Fri Jan <span class="number">04</span> <span class="number">19</span>:<span class="number">25</span>:<span class="number">44</span> CST <span class="number">2019</span></span><br><span class="line">mZxid = <span class="number">0</span>x20000002d</span><br><span class="line">mtime = Fri Jan <span class="number">04</span> <span class="number">19</span>:<span class="number">25</span>:<span class="number">44</span> CST <span class="number">2019</span></span><br><span class="line">pZxid = <span class="number">0</span>x20000002d</span><br><span class="line">cversion = <span class="number">0</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0</span>x0</span><br><span class="line">dataLength = <span class="number">3</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br><span class="line">#修改节点触发watcher事件</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">29</span>] <span class="built_in">set</span> /testwatch2 newdata</span><br><span class="line"></span><br><span class="line"><span class="function">WATCHER::</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">WatchedEvent</span> <span class="title">state:SyncConnected</span> <span class="title">type:NodeDataChanged</span> <span class="title">path</span>:/<span class="title">testwatch2</span></span></span><br><span class="line"><span class="function"><span class="title">cZxid</span> = 0<span class="title">x20000002d</span></span></span><br><span class="line"><span class="function"><span class="title">ctime</span> = <span class="title">Fri</span> <span class="title">Jan</span> 04 19:25:44 <span class="title">CST</span> 2019</span></span><br><span class="line"><span class="function"><span class="title">mZxid</span> = 0<span class="title">x20000002e</span></span></span><br><span class="line"><span class="function"><span class="title">mtime</span> = <span class="title">Fri</span> <span class="title">Jan</span> 04 19:26:31 <span class="title">CST</span> 2019</span></span><br><span class="line"><span class="function"><span class="title">pZxid</span> = 0<span class="title">x20000002d</span></span></span><br><span class="line"><span class="function"><span class="title">cversion</span> = 0</span></span><br><span class="line"><span class="function"><span class="title">dataVersion</span> = 1</span></span><br><span class="line"><span class="function"><span class="title">aclVersion</span> = 0</span></span><br><span class="line"><span class="function"><span class="title">ephemeralOwner</span> = 0<span class="title">x0</span></span></span><br><span class="line"><span class="function"><span class="title">dataLength</span> = 7</span></span><br><span class="line"><span class="function"><span class="title">numChildren</span> = 0</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">#注：再次修改节点无法触发<span class="title">watcher</span>时间，需要重新<span class="title">get</span> /<span class="title">testwatch2</span> <span class="title">watch</span> 添加触发。</span></span><br></pre></td></tr></table></figure>
+<p>—子节点创建和删除时触发watch事件，子节点修改不会触发该事件；</p>
+<ul>
+<li>ACL权限控制</li>
+</ul>
+<p>ZK的节点有5种操作权限：CREATE、READ、WRITE、DELETE、ADMIN 也就是 增、删、改、查、管理权限，这5种权限简写为crwda(即：每个单词的首字符缩写)。<br>注：这5种权限中，delete是指对子节点的删除权限，其它4种权限指对自身节点的操作权限</p>
+<p>身份的认证有4种方式： </p>
+<ol>
+<li>world：默认方式，相当于全世界都能访问 </li>
+<li>auth：代表已经认证通过的用户(cli中可以通过addauth digest user:pwd 来添加当前上下文中的授权用户) </li>
+<li>digest：即用户名:密码这种方式认证，这也是业务系统中最常用的 </li>
+<li>ip：使用Ip地址认证</li>
+</ol>
+<h3 id="3-3-四字命令Four-Letter-Words"><a href="#3-3-四字命令Four-Letter-Words" class="headerlink" title="3.3 四字命令Four Letter Words"></a>3.3 四字命令Four Letter Words</h3><ul>
+<li>使用四字命令需要安装<code>nc</code>命令,(<code>yum install nc</code>)；</li>
+<li>stat 查看状态信息：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> stat | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line">Zookeeper version: <span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span>-<span class="number">1569965</span>, built on <span class="number">02</span>/<span class="number">20</span>/<span class="number">2014</span> <span class="number">09</span>:<span class="number">09</span> GMT</span><br><span class="line"><span class="function">Clients:</span></span><br><span class="line"><span class="function"> /192.168.142.11:43669[0](<span class="title">queued</span>=0,<span class="title">recved</span>=1,<span class="title">sent</span>=0)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">Latency</span> <span class="title">min</span>/<span class="title">avg</span>/<span class="title">max</span>: 0/1/119</span></span><br><span class="line"><span class="function"><span class="title">Received</span>: 552</span></span><br><span class="line"><span class="function"><span class="title">Sent</span>: 554</span></span><br><span class="line"><span class="function"><span class="title">Connections</span>: 1</span></span><br><span class="line"><span class="function"><span class="title">Outstanding</span>: 0</span></span><br><span class="line"><span class="function"><span class="title">Zxid</span>: 0<span class="title">x200000034</span></span></span><br><span class="line"><span class="function"><span class="title">Mode</span>: <span class="title">follower</span></span></span><br><span class="line"><span class="function"><span class="title">Node</span> <span class="title">count</span>: 10</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>ruok 查看zookeeper是否启动</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> ruok | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line">imok[root@node01 ~]#</span><br></pre></td></tr></table></figure>
+<ul>
+<li>dump 列出没有处理的节点，临时节点</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> dump | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line">SessionTracker dump:</span><br><span class="line">org.apache.zookeeper.server.quorum.LearnerSessionTracker@<span class="number">44</span>fc7eee</span><br><span class="line">ephemeral nodes dump:</span><br><span class="line">Sessions with Ephemerals (<span class="number">0</span>):</span><br></pre></td></tr></table></figure>
+<ul>
+<li>conf 查看服务器配置</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> conf | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line">clientPort=<span class="number">2181</span></span><br><span class="line">dataDir=/opt/zookeeper/version-<span class="number">2</span></span><br><span class="line">dataLogDir=/opt/zookeeper/version-<span class="number">2</span></span><br><span class="line">tickTime=<span class="number">2000</span></span><br><span class="line">maxClientCnxns=<span class="number">60</span></span><br><span class="line">minSessionTimeout=<span class="number">4000</span></span><br><span class="line">maxSessionTimeout=<span class="number">40000</span></span><br><span class="line">serverId=<span class="number">1</span></span><br><span class="line">initLimit=<span class="number">10</span></span><br><span class="line">syncLimit=<span class="number">5</span></span><br><span class="line">electionAlg=<span class="number">3</span></span><br><span class="line">electionPort=<span class="number">3888</span></span><br><span class="line">quorumPort=<span class="number">2888</span></span><br><span class="line">peerType=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>cons 显示连接到服务端的信息</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> cons | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line"> /<span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span>:<span class="number">43674</span>[<span class="number">0</span>](queued=<span class="number">0</span>,recved=<span class="number">1</span>,sent=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>envi 显示环境变量信息</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> envi | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line"><span class="function">Environment:</span></span><br><span class="line"><span class="function"><span class="title">zookeeper.version</span>=3.4.6-1569965, <span class="title">built</span> <span class="title">on</span> 02/20/2014 09:09 <span class="title">GMT</span></span></span><br><span class="line"><span class="function"><span class="title">host.name</span>=<span class="title">node01</span></span></span><br><span class="line"><span class="function"><span class="title">java.version</span>=1.8.0<span class="title">_191</span></span></span><br><span class="line"><span class="function"><span class="title">java.vendor</span>=<span class="title">Oracle</span> <span class="title">Corporation</span></span></span><br><span class="line"><span class="function"><span class="title">java.home</span>=/<span class="title">usr</span>/<span class="title">java</span>/<span class="title">jdk1</span>.8.0<span class="title">_191</span>-<span class="title">amd64</span>/<span class="title">jre</span></span></span><br><span class="line"><span class="function"><span class="title">java.class.path</span>=/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">build</span>/<span class="title">classes</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">build</span>/<span class="title">lib</span>/*.<span class="title">jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">lib</span>/<span class="title">slf4j</span>-<span class="title">log4j12</span>-1.6.1.<span class="title">jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">lib</span>/<span class="title">slf4j</span>-<span class="title">api</span>-1.6.1.<span class="title">jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">lib</span>/<span class="title">netty</span>-3.7.0.<span class="title">Final.jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">lib</span>/<span class="title">log4j</span>-1.2.16.<span class="title">jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">lib</span>/<span class="title">jline</span>-0.9.94.<span class="title">jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">zookeeper</span>-3.4.6.<span class="title">jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">src</span>/<span class="title">java</span>/<span class="title">lib</span>/*.<span class="title">jar</span>:/<span class="title">usr</span>/<span class="title">zookeeper</span>-3.4.6/<span class="title">bin</span>/../<span class="title">conf</span>:</span></span><br><span class="line"><span class="function"><span class="title">java.library.path</span>=/<span class="title">usr</span>/<span class="title">java</span>/<span class="title">packages</span>/<span class="title">lib</span>/<span class="title">amd64</span>:/<span class="title">usr</span>/<span class="title">lib64</span>:/<span class="title">lib64</span>:/<span class="title">lib</span>:/<span class="title">usr</span>/<span class="title">lib</span></span></span><br><span class="line"><span class="function"><span class="title">java.io.tmpdir</span>=/<span class="title">tmp</span></span></span><br><span class="line"><span class="function"><span class="title">java.compiler</span>=&lt;<span class="title">NA</span>&gt;</span></span><br><span class="line"><span class="function"><span class="title">os.name</span>=<span class="title">Linux</span></span></span><br><span class="line"><span class="function"><span class="title">os.arch</span>=<span class="title">amd64</span></span></span><br><span class="line"><span class="function"><span class="title">os.version</span>=2.6.32-504.<span class="title">el6.x86_64</span></span></span><br><span class="line"><span class="function"><span class="title">user.name</span>=<span class="title">root</span></span></span><br><span class="line"><span class="function"><span class="title">user.home</span>=/<span class="title">root</span></span></span><br><span class="line"><span class="function"><span class="title">user.dir</span>=/<span class="title">opt</span>/<span class="title">hadoop</span>/<span class="title">dfs</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>mntr 查看zk的健康信息</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> mntr | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line">zk_version	<span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span>-<span class="number">1569965</span>, built on <span class="number">02</span>/<span class="number">20</span>/<span class="number">2014</span> <span class="number">09</span>:<span class="number">09</span> GMT</span><br><span class="line">zk_avg_latency	<span class="number">1</span></span><br><span class="line">zk_max_latency	<span class="number">119</span></span><br><span class="line">zk_min_latency	<span class="number">0</span></span><br><span class="line">zk_packets_received	<span class="number">559</span></span><br><span class="line">zk_packets_sent	<span class="number">561</span></span><br><span class="line">zk_num_alive_connections	<span class="number">1</span></span><br><span class="line">zk_outstanding_requests	<span class="number">0</span></span><br><span class="line">zk_server_state	follower</span><br><span class="line">zk_znode_count	<span class="number">10</span></span><br><span class="line">zk_watch_count	<span class="number">0</span></span><br><span class="line">zk_ephemerals_count	<span class="number">0</span></span><br><span class="line">zk_approximate_data_size	<span class="number">154</span></span><br><span class="line">zk_open_file_descriptor_count	<span class="number">30</span></span><br><span class="line">zk_max_file_descriptor_count	<span class="number">4096</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>wchs 展示watch的信息</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# <span class="built_in">echo</span> wchs | nc <span class="number">192</span>.<span class="number">168</span>.<span class="number">142</span>.<span class="number">11</span> <span class="number">2181</span></span><br><span class="line"><span class="number">0</span> connections watching <span class="number">0</span> paths</span><br><span class="line">Total watches:<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p><strong>wchc和wchp 显示session的watch信息 path的watch信息，需要在 配置<code>zoo.cfg</code>文件中添加 4lw.commands.whitelist=*</strong>。</p>
+
+      
+    </div>
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="JankoWilliam wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/大数据/" rel="tag"># 大数据</a>
+          
+            <a href="/tags/Zookeeper/" rel="tag"># Zookeeper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/29/md_大数据/大数据005——HDFS1.0/" rel="next" title="大数据005——HDFS1.0">
+                <i class="fa fa-chevron-left"></i> 大数据005——HDFS1.0
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/01/md_大数据/大数据007——HDFS2.0/" rel="prev" title="大数据007——HDFS2.0">
+                大数据007——HDFS2.0 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/h01.jpg" alt="JankoWilliam">
+            
+              <p class="site-author-name" itemprop="name">JankoWilliam</p>
+              <p class="site-description motion-element" itemprop="description">曼巴崛起！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/JankoWilliam" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/sinat_34045444" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.  前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Zookeeper简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Zookeeper简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Zookeeper安装部署"><span class="nav-number">2.</span> <span class="nav-text">2. Zookeeper安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Zookeeper基础命令"><span class="nav-number">3.</span> <span class="nav-text">3. Zookeeper基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-配置Zookeeper环境变量，方便指令操作"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置Zookeeper环境变量，方便指令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基础命令操作"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基础命令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-四字命令Four-Letter-Words"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 四字命令Four Letter Words</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JankoWilliam</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+  <span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共42k字</span>
+</div>
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+	
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("48IBTTuYH5YHCmQtmovrrgPK-gzGzoHsz", "JvMb3JejwCm1CHqSPvgKDpft");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
