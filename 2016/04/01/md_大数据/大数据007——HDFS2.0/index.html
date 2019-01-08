@@ -91,7 +91,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/001.png">
 <meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/003.jpg">
-<meta property="og:updated_time" content="2019-01-08T01:56:35.308Z">
+<meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/004.PNG">
+<meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/005.PNG">
+<meta property="og:updated_time" content="2019-01-08T13:24:41.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据007——HDFS2.0">
 <meta name="twitter:description" content="1. Hadoop 2.01.1 Hadoop1.0于Hadoop2.0的区别1）.  从整体框架来说 ​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。 ​    b. Hadoop2.0">
@@ -417,7 +419,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  2.1k
                 </span>
               
 
@@ -433,7 +435,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  8
                 </span>
               
             </div>
@@ -499,7 +501,104 @@
 </li>
 </ul>
 <p>​       如果ZKFC所在机器的Namenode健康状态良好，并且用于选举的znode锁未被其他节点持有，则ZKFC会尝试获取锁,成功获取这个排它锁就代表获得选举，获得选举之后负责故障转移，如果有必要，会fencing掉之前的namenode使其不可用，然后将自己的namenode切换为Active状态。</p>
-<h2 id="3-Hadoop2-X-HA搭建"><a href="#3-Hadoop2-X-HA搭建" class="headerlink" title="3. Hadoop2.X HA搭建"></a>3. Hadoop2.X HA搭建</h2>
+<h2 id="3-Hadoop2-X-HA搭建"><a href="#3-Hadoop2-X-HA搭建" class="headerlink" title="3. Hadoop2.X HA搭建"></a>3. Hadoop2.X HA搭建</h2><p>四台linux虚拟机：hadoop1，hadoop2，hadoop3，hadoop4</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">NN</th>
+<th style="text-align:center">DN</th>
+<th style="text-align:center">ZK</th>
+<th style="text-align:center">ZKFC</th>
+<th style="text-align:center">JN</th>
+<th style="text-align:center">RM</th>
+<th style="text-align:center">NM（任务管理）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hadoop1</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>Hadoop2</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td>Hadoop3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>环境配置与之前Hadoop1.0无差异：通过VMware的克隆虚拟机功能；配置好网络JDK 时间 hosts，保证节点间能互ping通，这里配置了host：node01、node02、node03；ssh免秘钥登录；时间同步；</p>
+</li>
+<li><p>下载并解压Hadoop安装包；</p>
+</li>
+<li><p>配置etc/hadoop/hadoop-env.sh；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=$&#123;JAVA_HOME&#125;</span><br><span class="line">JAVA_HOME=/usr/java/jdk1.8.0_191-amd64       #这里为JDK根目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置etc/hadoop/core-site.xml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://fzp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>ha.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>node01:2181,node02:2181,node03:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/hadoop<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置etc/hadoop/hdfs-site.xml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定namenode元数据存储在journalnode中的路径 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.shared.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>qjournal://node01:8485;node02:8485;node03:8485/fzp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定HDFS客户端连接active namenode的java类 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.client.failover.proxy.provider.fzp<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 配置隔离机制为ssh 防止脑裂 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.methods<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>sshfence<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定秘钥的位置 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.ssh.private-key-files<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/.ssh/id_dsa<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 指定journalnode日志文件存储的路径 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.journalnode.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/hadoop2.6.5/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 开启自动故障转移 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.automatic-failover.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>准备zookeeper，请参考上一小节；</p>
+</li>
+<li><p>配置etc/hadoop/slaves文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node01</span><br><span class="line">node02</span><br><span class="line">node03</span><br></pre></td></tr></table></figure>
+<p>注意：Hadoop2.0版本弱化可SecondaryNameNode的功能，所以无需配置，删除etc/hadoop/master文件。</p>
+</li>
+<li><p>发送其他节点服务器并配置环境变量；</p>
+</li>
+<li><p>测试启动：</p>
+<ul>
+<li><p>启动三个zookeeper：./zkServer.sh start；</p>
+</li>
+<li><p>启动三个JournalNode：./hadoop-daemon.sh start journalnode；</p>
+</li>
+<li><p>在其中一个namenode（如：node01）上格式化：hdfs namenode -format</p>
+</li>
+<li><p>把刚刚<strong>格式化</strong>之后的元数据拷贝到另外一个namenode（node02）上：</p>
+<p>a)  启动刚刚格式化的namenode （node01）:  hadoop-daemon.sh start namenode；</p>
+<p>b)  在没有格式化的namenode（node02）上执行：hdfs namenode -bootstrapStandby；</p>
+<p>c)   启动第二个namenode（node02）    hadoop-daemon.sh start namenode；</p>
+</li>
+<li><p>在其中一个namenode上初始化zkfc：hdfs zkfc-formatZK；</p>
+</li>
+<li><p>停止上面节点：stop-dfs.sh。</p>
+</li>
+</ul>
+</li>
+<li><p>全面启动：start-dfs.sh （整体启动namenode,datanode,journanode,zkfz）；</p>
+</li>
+<li><p>分别在node02、node03节点上启动yarn：yarn-daemon.sh start resourcemanager；</p>
+</li>
+<li><p>浏览器访问：</p>
+<p><img src="/img/大数据007——HDFS2.0/004.PNG" alt=""></p>
+<p><img src="/img/大数据007——HDFS2.0/005.PNG" alt=""></p>
+</li>
+</ol>
+
       
     </div>
 	<div>
@@ -762,7 +861,7 @@
   <span class="post-meta-divider">|</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共44.6k字</span>
+  <span class="post-count">博客全站共45.9k字</span>
 </div>
 
   <span class="post-meta-divider">|</span>

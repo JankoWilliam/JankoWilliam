@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
 <meta property="og:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-05T14:17:37.900Z">
+<meta property="og:updated_time" content="2019-01-08T13:22:57.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据006——Zookeeper">
 <meta name="twitter:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.2k
+                  3.8k
                 </span>
               
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  14
+                  17
                 </span>
               
             </div>
@@ -502,7 +502,84 @@
 </tr>
 </tbody>
 </table>
-<h3 id="1-3-Zookeeper的角色"><a href="#1-3-Zookeeper的角色" class="headerlink" title="1.3 Zookeeper的角色"></a>1.3 Zookeeper的角色</h3><h2 id="2-Zookeeper安装部署"><a href="#2-Zookeeper安装部署" class="headerlink" title="2. Zookeeper安装部署"></a>2. Zookeeper安装部署</h2><p>注：windows下zookeeper集群搭建请参考:<a href="https://blog.csdn.net/qiunian144084/article/details/79192819" target="_blank" rel="noopener">Zookeeper 在Windows下的安装过程及测试</a>。</p>
+<h3 id="1-3-Zookeeper的角色"><a href="#1-3-Zookeeper的角色" class="headerlink" title="1.3 Zookeeper的角色"></a>1.3 Zookeeper的角色</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">角色</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">领导者（Leader）</td>
+<td>领导者负责进行投票的发起和决议，更新系统状态；</td>
+</tr>
+<tr>
+<td style="text-align:center">学习者（Learner）_跟随者（Follower）</td>
+<td>Follower用于接收客户请求并向客户端返回结果，在选主过程中参与投票；</td>
+</tr>
+<tr>
+<td style="text-align:center">学习者（Learner）_观察者（ObServer）</td>
+<td>ObServer可以接收客户端连接，将写请求转发给Leader节点;但ObServer不参加投票过程，指同步Leader的状态；ObServer的目的是为了扩展系统，提高读取速度。</td>
+</tr>
+<tr>
+<td style="text-align:center">客户端（Client）</td>
+<td>请求发起方</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-Zookeeper的特点"><a href="#1-4-Zookeeper的特点" class="headerlink" title="1.4 Zookeeper的特点"></a>1.4 Zookeeper的特点</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>最终一致性</strong></td>
+<td>为客户端展示同一个视图，这是zookeeper里面一个非常重要的功能；</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>可靠性</strong></td>
+<td>如果消息被到一台服务器接受，那么它将被所有的服务器接受；</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>实时性</strong></td>
+<td>Zookeeper不能保证两个客户端能同时得到刚更新的数据，如果需要最新数据，应该在读数据之前调用sync()接口；</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>独立性</strong></td>
+<td>各个Client之间互不干预；</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>原子性</strong></td>
+<td>更新只能成功或者失败，没有中间状态；</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>顺序性</strong></td>
+<td>所有Server，同一消息发布顺序一致。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-Zookeeper安装部署"><a href="#2-Zookeeper安装部署" class="headerlink" title="2. Zookeeper安装部署"></a>2. Zookeeper安装部署</h2><h3 id="2-1-Linux系统下的安装配置"><a href="#2-1-Linux系统下的安装配置" class="headerlink" title="2.1 Linux系统下的安装配置"></a>2.1 Linux系统下的安装配置</h3><ol>
+<li><p>准备至少3台Linux虚拟机</p>
+<p>通过VMware的克隆虚拟机功能；配置好网络JDK 时间 hosts，保证节点间能互ping通，这里配置了host：node01、node02、node03；</p>
+</li>
+<li><p>下载安装包，在node01节点下解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# tar -zxvf zookeeper-3.4.6.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置zoo.cfg文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 usr]# vim zookeeper-3.4.6/conf/zoo.cfg</span><br></pre></td></tr></table></figure>
+<p>配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tickTime=2000  #发送心跳的间隔时间，单位：毫秒</span><br><span class="line">dataDir=/opt/zookeeperdata </span><br><span class="line">clientPort=2181		#户端连接 Zookeeper 服务器的端口，Zookeeper会监听这个端口，接受客户端的访问请求。</span><br><span class="line">initLimit=5			#初始化连接时最长能忍受多少个心跳时间间隔数	5*2000=10 秒</span><br><span class="line">syncLimit=2			#Leader 与 Follower 之间发送消息，请求和应答时间长度 2*2000=4 秒</span><br><span class="line">server.1=node01:2888:3888</span><br><span class="line">server.2=node02:2888:3888</span><br><span class="line">server.3=node03:2888:3888</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在上述配置的dataDir文件夹中创建myid文件，server1机器的内容为：1，server2机器的内容为：2，server3机器的内容为：3；</p>
+</li>
+<li><p>复制到其他zk节点，记得修改myid。</p>
+</li>
+</ol>
+<h3 id="2-1-windows系统下的安装配置"><a href="#2-1-windows系统下的安装配置" class="headerlink" title="2.1 windows系统下的安装配置"></a>2.1 windows系统下的安装配置</h3><p>​    windows下zookeeper集群搭建请参考:<a href="https://blog.csdn.net/qiunian144084/article/details/79192819" target="_blank" rel="noopener">Zookeeper 在Windows下的安装过程及测试</a>。</p>
 <h2 id="3-Zookeeper基础命令"><a href="#3-Zookeeper基础命令" class="headerlink" title="3. Zookeeper基础命令"></a>3. Zookeeper基础命令</h2><h3 id="3-1-配置Zookeeper环境变量，方便指令操作"><a href="#3-1-配置Zookeeper环境变量，方便指令操作" class="headerlink" title="3.1 配置Zookeeper环境变量，方便指令操作"></a>3.1 配置Zookeeper环境变量，方便指令操作</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>在后面添加：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ZOOKEEPER_HOME=/usr/zookeeper-<span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span> #这里修改为zookeeper根目录</span><br><span class="line"><span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$ZOOKEEPER_HOME/bin</span><br></pre></td></tr></table></figure>
@@ -857,7 +934,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.  前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Zookeeper简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Zookeeper简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-ZooKeeper典型应用场景一览"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 ZooKeeper典型应用场景一览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Zookeeper的角色"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Zookeeper的角色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Zookeeper安装部署"><span class="nav-number">2.</span> <span class="nav-text">2. Zookeeper安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Zookeeper基础命令"><span class="nav-number">3.</span> <span class="nav-text">3. Zookeeper基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-配置Zookeeper环境变量，方便指令操作"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置Zookeeper环境变量，方便指令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基础命令操作"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基础命令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-四字命令Four-Letter-Words"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 四字命令Four Letter Words</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.  前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Zookeeper简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Zookeeper简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-ZooKeeper典型应用场景一览"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 ZooKeeper典型应用场景一览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Zookeeper的角色"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Zookeeper的角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Zookeeper的特点"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 Zookeeper的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Zookeeper安装部署"><span class="nav-number">2.</span> <span class="nav-text">2. Zookeeper安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Linux系统下的安装配置"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Linux系统下的安装配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-windows系统下的安装配置"><span class="nav-number">2.2.</span> <span class="nav-text">2.1 windows系统下的安装配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Zookeeper基础命令"><span class="nav-number">3.</span> <span class="nav-text">3. Zookeeper基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-配置Zookeeper环境变量，方便指令操作"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置Zookeeper环境变量，方便指令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基础命令操作"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基础命令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-四字命令Four-Letter-Words"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 四字命令Four Letter Words</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -895,7 +972,7 @@
   <span class="post-meta-divider">|</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共44.6k字</span>
+  <span class="post-count">博客全站共45.9k字</span>
 </div>
 
   <span class="post-meta-divider">|</span>
