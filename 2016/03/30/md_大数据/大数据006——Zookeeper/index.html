@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1.  前言1.1 Zookeeper简介">
+<meta name="description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
 <meta name="keywords" content="Linux,大数据,Zookeeper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据006——Zookeeper">
 <meta property="og:url" content="http://yoursite.com/2016/03/30/md_大数据/大数据006——Zookeeper/index.html">
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
-<meta property="og:description" content="1.  前言1.1 Zookeeper简介">
+<meta property="og:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-05T04:22:44.934Z">
+<meta property="og:updated_time" content="2019-01-05T14:17:37.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据006——Zookeeper">
-<meta name="twitter:description" content="1.  前言1.1 Zookeeper简介">
+<meta name="twitter:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
 
 
 
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k
+                  3.2k
                 </span>
               
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  14
                 </span>
               
             </div>
@@ -451,8 +451,58 @@
       
 
       
-        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><a id="more"></a>
-<h2 id="2-Zookeeper安装部署"><a href="#2-Zookeeper安装部署" class="headerlink" title="2. Zookeeper安装部署"></a>2. Zookeeper安装部署</h2><p>注：windows下zookeeper集群搭建请参考:<a href="https://blog.csdn.net/qiunian144084/article/details/79192819" target="_blank" rel="noopener">Zookeeper 在Windows下的安装过程及测试</a>。</p>
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><pre><code>ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。
+</code></pre><p>​    目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个为分布式应用提供<strong>一致性服务</strong>的软件，<strong>提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</strong></p>
+<a id="more"></a>
+<h3 id="1-2-ZooKeeper典型应用场景一览"><a href="#1-2-ZooKeeper典型应用场景一览" class="headerlink" title="1.2 ZooKeeper典型应用场景一览"></a>1.2 ZooKeeper典型应用场景一览</h3><table>
+<thead>
+<tr>
+<th><strong>1. 数据发布与订阅（配置中心）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>发布与订阅模型，即所谓的配置中心，顾名思义就是发布者将数据发布到ZK节点上，供订阅者动态获取数据，实现配置信息的集中式管理和动态更新。例如全局的配置信息，服务式服务框架的服务地址列表等就非常适合使用。应用场景如下：a. 应用中用到的一些配置信息放到ZK上进行集中管理；b. 分布式搜索服务中，索引的元信息和服务器集群机器的节点状态存放在ZK的一些指定节点，供各个客户端订阅使用；c. 分布式日志收集系统；d. 系统中有些信息需要动态获取，并且还会存在人工手动去修改这个信息的发问。</td>
+</tr>
+<tr>
+<td><strong>2. 负载均衡</strong></td>
+</tr>
+<tr>
+<td>这里说的负载均衡是指软负载均衡。在分布式环境中，为了保证高可用性，通常同一个应用或同一个服务的提供方都会部署多份，达到对等服务。而消费者就须要在这些对等的服务器中选择一个来执行相关的业务逻辑，其中比较典型的是消息中间件中的生产者，消费者负载均衡。</td>
+</tr>
+<tr>
+<td><strong>3. 命名服务(Naming Service)</strong></td>
+</tr>
+<tr>
+<td>命名服务也是分布式系统中比较常见的一类场景。在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务地址，远程对象等等——这些我们都可以统称他们为名字（Name）。其中较为常见的就是一些分布式服务框架中的服务地址列表。通过调用ZK提供的创建节点的API，能够很容易创建一个全局唯一的path，这个path就可以作为一个名称。</td>
+</tr>
+<tr>
+<td><strong>4. 分布式通知/协调</strong></td>
+</tr>
+<tr>
+<td>ZooKeeper中特有watcher注册与异步通知机制，能够很好的实现分布式环境下不同系统之间的通知与协调，实现对数据变更的实时处理。使用方法通常是不同系统都对ZK上同一个znode进行注册，监听znode的变化（包括znode本身内容及子节点的），其中一个系统update了znode，那么另一个系统能够收到通知，并作出相应处理。</td>
+</tr>
+<tr>
+<td><strong>5. 集群管理与Master选举</strong></td>
+</tr>
+<tr>
+<td>群机器监控：这通常用于那种对集群中机器状态，机器在线率有较高要求的场景，能够快速对集群中机器变化作出响应。这样的场景中，往往有一个监控系统，实时检测集群机器是否存活。</td>
+</tr>
+<tr>
+<td><strong>6. 分布式锁</strong></td>
+</tr>
+<tr>
+<td>分布式锁，这个主要得益于ZooKeeper为我们保证了数据的强一致性。锁服务可以分为两类，一个是<strong>保持独占</strong>，另一个是<strong>控制时序</strong>。</td>
+</tr>
+<tr>
+<td><strong>7. 分布式队列</strong></td>
+</tr>
+<tr>
+<td>队列方面，简单地讲有两种，一种是常规的先进先出队列，另一种是要等到队列成员聚齐之后的才统一按序执行。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-3-Zookeeper的角色"><a href="#1-3-Zookeeper的角色" class="headerlink" title="1.3 Zookeeper的角色"></a>1.3 Zookeeper的角色</h3><h2 id="2-Zookeeper安装部署"><a href="#2-Zookeeper安装部署" class="headerlink" title="2. Zookeeper安装部署"></a>2. Zookeeper安装部署</h2><p>注：windows下zookeeper集群搭建请参考:<a href="https://blog.csdn.net/qiunian144084/article/details/79192819" target="_blank" rel="noopener">Zookeeper 在Windows下的安装过程及测试</a>。</p>
 <h2 id="3-Zookeeper基础命令"><a href="#3-Zookeeper基础命令" class="headerlink" title="3. Zookeeper基础命令"></a>3. Zookeeper基础命令</h2><h3 id="3-1-配置Zookeeper环境变量，方便指令操作"><a href="#3-1-配置Zookeeper环境变量，方便指令操作" class="headerlink" title="3.1 配置Zookeeper环境变量，方便指令操作"></a>3.1 配置Zookeeper环境变量，方便指令操作</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>在后面添加：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ZOOKEEPER_HOME=/usr/zookeeper-<span class="number">3</span>.<span class="number">4</span>.<span class="number">6</span> #这里修改为zookeeper根目录</span><br><span class="line"><span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$ZOOKEEPER_HOME/bin</span><br></pre></td></tr></table></figure>
@@ -807,7 +857,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.  前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Zookeeper简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Zookeeper简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Zookeeper安装部署"><span class="nav-number">2.</span> <span class="nav-text">2. Zookeeper安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Zookeeper基础命令"><span class="nav-number">3.</span> <span class="nav-text">3. Zookeeper基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-配置Zookeeper环境变量，方便指令操作"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置Zookeeper环境变量，方便指令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基础命令操作"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基础命令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-四字命令Four-Letter-Words"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 四字命令Four Letter Words</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.  前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Zookeeper简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Zookeeper简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-ZooKeeper典型应用场景一览"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 ZooKeeper典型应用场景一览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Zookeeper的角色"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Zookeeper的角色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Zookeeper安装部署"><span class="nav-number">2.</span> <span class="nav-text">2. Zookeeper安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Zookeeper基础命令"><span class="nav-number">3.</span> <span class="nav-text">3. Zookeeper基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-配置Zookeeper环境变量，方便指令操作"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置Zookeeper环境变量，方便指令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基础命令操作"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基础命令操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-四字命令Four-Letter-Words"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 四字命令Four Letter Words</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -845,7 +895,7 @@
   <span class="post-meta-divider">|</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共42.4k字</span>
+  <span class="post-count">博客全站共44.6k字</span>
 </div>
 
   <span class="post-meta-divider">|</span>
@@ -1496,5 +1546,5 @@
   
 
   
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":75,"height":150},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
 </html>

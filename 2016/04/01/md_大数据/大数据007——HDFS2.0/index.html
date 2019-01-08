@@ -89,10 +89,13 @@
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
 <meta property="og:description" content="1. Hadoop 2.01.1 Hadoop1.0于Hadoop2.0的区别1）.  从整体框架来说 ​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。 ​    b. Hadoop2.0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-05T13:31:30.926Z">
+<meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/001.png">
+<meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/003.jpg">
+<meta property="og:updated_time" content="2019-01-08T01:56:35.308Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据007——HDFS2.0">
 <meta name="twitter:description" content="1. Hadoop 2.01.1 Hadoop1.0于Hadoop2.0的区别1）.  从整体框架来说 ​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。 ​    b. Hadoop2.0">
+<meta name="twitter:image" content="http://yoursite.com/img/大数据007——HDFS2.0/001.png">
 
 
 
@@ -414,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  235
+                  1.4k
                 </span>
               
 
@@ -430,7 +433,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  5
                 </span>
               
             </div>
@@ -456,7 +459,47 @@
 <p>​    b. Hadoop2.0即第二代Hadoop，内核主要由HDFS、MapReduce和YARN三个系统组成，其中YARN是一个资源管理系统，负责集群资源管理和调度，MapReduce则是运行在YARN上的离线处理框架，它与Hadoop 1.0中的MapReduce在编程模型（新旧API）和数据处理引擎（MapTask和ReduceTask）两个方面是相同的。针对Hadoop1.0单NameNode制约HDFS的扩展性问题，提出HDFS Federation（联盟），它让多个NameNode分管不同的目录进而实现访问隔离和横向扩展，同时彻底解决了NameNode单点故障问题</p>
 <a id="more"></a>
 <p><strong>2）. 从MapReduce计算框架来说</strong></p>
-<h2 id="2-HDFS-2-0-HA高可用"><a href="#2-HDFS-2-0-HA高可用" class="headerlink" title="2. HDFS 2.0 HA高可用"></a>2. HDFS 2.0 HA高可用</h2><h2 id="3-Hadoop2-X-HA搭建"><a href="#3-Hadoop2-X-HA搭建" class="headerlink" title="3. Hadoop2.X HA搭建"></a>3. Hadoop2.X HA搭建</h2>
+<p>​    a. MapReduce1.0计算框架主要由三部分组成：编程模型、数据处理引擎和运行时环境。它的基本编程模型是将问题抽象成Map和Reduce两个阶段，其中Map阶段将输入的数据解析成key/value，迭代调用map()函数处理后，再以key/value的形式输出到本地目录，Reduce阶段将key相同的value进行规约处理，并将最终结果写到HDFS上；它的数据处理引擎由MapTask和ReduceTask组成，分别负责Map阶段逻辑和Reduce阶段的逻辑处理；它的运行时环境由一个JobTracker和若干个TaskTracker两类服务组成，其中JobTracker负责资源管理和所有作业的控制，TaskTracker负责接收来自JobTracker的命令并执行它。<br>​        b. MapReducer2.0具有与MRv1相同的编程模型和数据处理引擎，唯一不同的是运行时环境。MRv2是在MRv1基础上经加工之后，运行于资源管理框架Yarn之上的计算框架MapReduce。它的运行时环境不再由JobTracker和TaskTracker等服务组成，而是变为通用资源管理系统Yarn和作业控制进程ApplicationMaster，其中Yarn负责资源管理的调度而ApplicationMaster负责作业的管理。</p>
+<p><img src="/img/大数据007——HDFS2.0/001.png" alt=""></p>
+<h2 id="2-HDFS-2-0-HA高可用"><a href="#2-HDFS-2-0-HA高可用" class="headerlink" title="2. HDFS 2.0 HA高可用"></a>2. HDFS 2.0 HA高可用</h2><h3 id="2-1-HDFS-HA背景"><a href="#2-1-HDFS-HA背景" class="headerlink" title="2.1 HDFS HA背景"></a>2.1 HDFS HA背景</h3><p>​    在Hadoop 1.x 中，Namenode是集群的单点故障，一旦Namenode出现故障，整个集群将不可用，重启或者开启一个新的Namenode才能够从中恢复。值得一提的是，Secondary Namenode并没有提供故障转移的能力。集群的可用性受到影响表现在：</p>
+<ul>
+<li><p>当机器发生故障，如断电时，管理员必须重启Namenode才能恢复可用。</p>
+</li>
+<li><p>在日常的维护升级中，需要停止Namenode，也会导致集群一段时间不可用</p>
+</li>
+</ul>
+<h3 id="1-2-HDFS-HA架构"><a href="#1-2-HDFS-HA架构" class="headerlink" title="1.2 HDFS HA架构"></a>1.2 HDFS HA架构</h3><p>​    Hadoop HA（High Available）通过同时配置两个处于Active/Passive模式的Namenode来解决上述问题，分别叫Active Namenode和Standby Namenode. Standby Namenode作为热备份，从而允许在机器发生故障时能够快速进行故障转移，同时在日常维护的时候使用优雅的方式进行Namenode切换。Namenode只能配置一主一备，不能多于两个Namenode。两个Namenode存在以下特点：</p>
+<ul>
+<li>主Namenode处理所有的操作请求（读写），而Standby只是作为slave；</li>
+<li>两个Namenode都与一组Journal Node进行通信；</li>
+<li>当进行故障转移时，Standby在成为Active Namenode之前，会确保自己已经读取了Journal Node中的所有edit日志，从而保持数据状态与故障发生前一致；</li>
+<li>Datanode同时配置主备两个Namenode，并同时发送Block报告和心跳到两台Namenode；</li>
+<li>为了防止这种脑裂现象（两台Namenode都认为自己的Active Namenode时），Journal Nodes只允许一个Namenode写入数据，内部通过维护epoch数来控制，从而安全地进行故障转移；</li>
+<li>有两种方式可以进行edit log共享：<ul>
+<li>使用NFS共享edit log（存储在NAS/SAN）；</li>
+<li>使用QJM共享edit log。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/大数据007——HDFS2.0/003.jpg" alt=""></p>
+<h3 id="1-3-Federation联邦"><a href="#1-3-Federation联邦" class="headerlink" title="1.3 Federation联邦"></a>1.3 Federation联邦</h3><p>​    通过多个namenode/namespace把元数据的存储和管理分散到多个节点中，使到namenode/namespace可以通过增加机器来进行水平扩展。</p>
+<p>​    能把单个namenode的负载分散到多个节点中，在HDFS数据规模较大的时候不会也降低HDFS的性能。可以通过多个namespace来隔离不同类型的应用，把不同类型应用的HDFS元数据的存储和管理分派到不同的namenode中。</p>
+<h3 id="1-4-使用Zookeeper进行自动故障转移"><a href="#1-4-使用Zookeeper进行自动故障转移" class="headerlink" title="1.4 使用Zookeeper进行自动故障转移"></a>1.4 使用Zookeeper进行自动故障转移</h3><p>​    前面提到，为了支持故障转移，Hadoop引入两个新的组件：Zookeeper Quorum和ZKFailoverController process（简称ZKFC）。</p>
+<p>​    Zookeeper的任务包括：</p>
+<ul>
+<li><p>失败检测： 每个Namnode都在ZK中维护一个持久性session，如果Namnode故障，session过期，使用zk的事件机制通知其他Namenode需要故障转移；</p>
+</li>
+<li><p>Namenode选举：如果当前Active namenode挂了，另一个namenode会尝试获取ZK中的一个排它锁，获取这个锁就表名它将成为下一个Active NN。</p>
+<p>在每个Namenode守护进程的机器上，同时也会运行一个ZKFC，用于完成以下任务：</p>
+<ul>
+<li>Namenode健康</li>
+<li>ZK Session管理</li>
+<li>基于ZK的Namenode选举</li>
+</ul>
+</li>
+</ul>
+<p>​       如果ZKFC所在机器的Namenode健康状态良好，并且用于选举的znode锁未被其他节点持有，则ZKFC会尝试获取锁,成功获取这个排它锁就代表获得选举，获得选举之后负责故障转移，如果有必要，会fencing掉之前的namenode使其不可用，然后将自己的namenode切换为Active状态。</p>
+<h2 id="3-Hadoop2-X-HA搭建"><a href="#3-Hadoop2-X-HA搭建" class="headerlink" title="3. Hadoop2.X HA搭建"></a>3. Hadoop2.X HA搭建</h2>
       
     </div>
 	<div>
@@ -681,7 +724,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Hadoop-2-0"><span class="nav-number">1.</span> <span class="nav-text">1. Hadoop 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Hadoop1-0于Hadoop2-0的区别"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Hadoop1.0于Hadoop2.0的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HDFS-2-0-HA高可用"><span class="nav-number">2.</span> <span class="nav-text">2. HDFS 2.0 HA高可用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Hadoop2-X-HA搭建"><span class="nav-number">3.</span> <span class="nav-text">3. Hadoop2.X HA搭建</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Hadoop-2-0"><span class="nav-number">1.</span> <span class="nav-text">1. Hadoop 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Hadoop1-0于Hadoop2-0的区别"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Hadoop1.0于Hadoop2.0的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HDFS-2-0-HA高可用"><span class="nav-number">2.</span> <span class="nav-text">2. HDFS 2.0 HA高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-HDFS-HA背景"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 HDFS HA背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-HDFS-HA架构"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 HDFS HA架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Federation联邦"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 Federation联邦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-使用Zookeeper进行自动故障转移"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 使用Zookeeper进行自动故障转移</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Hadoop2-X-HA搭建"><span class="nav-number">3.</span> <span class="nav-text">3. Hadoop2.X HA搭建</span></a></li></ol></div>
             
 
           </div>
@@ -719,7 +762,7 @@
   <span class="post-meta-divider">|</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共42.4k字</span>
+  <span class="post-count">博客全站共44.6k字</span>
 </div>
 
   <span class="post-meta-divider">|</span>
@@ -1370,5 +1413,5 @@
   
 
   
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":75,"height":150},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
 </html>
