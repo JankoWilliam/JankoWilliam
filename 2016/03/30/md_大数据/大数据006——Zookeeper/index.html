@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
+<meta name="description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。 目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个">
 <meta name="keywords" content="Linux,大数据,Zookeeper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据006——Zookeeper">
 <meta property="og:url" content="http://yoursite.com/2016/03/30/md_大数据/大数据006——Zookeeper/index.html">
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
-<meta property="og:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
+<meta property="og:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。 目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-08T13:22:57.089Z">
+<meta property="og:updated_time" content="2019-01-09T01:27:17.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据006——Zookeeper">
-<meta name="twitter:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。 ​    目前，大部分应用">
+<meta name="twitter:description" content="1.  前言1.1 Zookeeper简介ZooKeeper是一个分布式的，开源的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。 目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个">
 
 
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  17
+                  16
                 </span>
               
             </div>
@@ -451,8 +451,8 @@
       
 
       
-        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><pre><code>ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。
-</code></pre><p>​    目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个为分布式应用提供<strong>一致性服务</strong>的软件，<strong>提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</strong></p>
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><p>ZooKeeper是一个分布式的，开源的分布式应用程序协调服务<strong>，是<a href="http://baike.baidu.com/item/Google" target="_blank" rel="noopener">Google</a>的Chubby一个<a href="http://baike.baidu.com/item/%E5%BC%80%E6%BA%90" target="_blank" rel="noopener">开源</a>的实现，</strong>是Hadoop和Hbase的重要组件。</p>
+<p>目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个为分布式应用提供<strong>一致性服务</strong>的软件，<strong>提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</strong></p>
 <a id="more"></a>
 <h3 id="1-2-ZooKeeper典型应用场景一览"><a href="#1-2-ZooKeeper典型应用场景一览" class="headerlink" title="1.2 ZooKeeper典型应用场景一览"></a>1.2 ZooKeeper典型应用场景一览</h3><table>
 <thead>

@@ -989,10 +989,8 @@
 
       
         
-          <h2 id="1-YARN概述"><a href="#1-YARN概述" class="headerlink" title="1. YARN概述"></a>1. YARN概述</h2><pre><code>YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。
-
- YARN总体上仍然是master/slave结构，在整个资源管理框架中，resourcemanager为master，nodemanager是slave。Resourcemanager负责对各个nademanger上资源进行统一管理和调度。当用户提交一个应用程序时，需要提供一个用以跟踪和管理这个程序的ApplicationMaster，它负责向ResourceManager申请资源，并要求NodeManger启动可以占用一定资源的任务。由于不同的ApplicationMaster被分布到不同的节点上，因此它们之间不会相互影响。
-</code></pre>
+          <h2 id="1-YARN概述"><a href="#1-YARN概述" class="headerlink" title="1. YARN概述"></a>1. YARN概述</h2><p>YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。</p>
+<p> YARN总体上仍然是master/slave结构，在整个资源管理框架中，resourcemanager为master，nodemanager是slave。Resourcemanager负责对各个nademanger上资源进行统一管理和调度。当用户提交一个应用程序时，需要提供一个用以跟踪和管理这个程序的ApplicationMaster，它负责向ResourceManager申请资源，并要求NodeManger启动可以占用一定资源的任务。由于不同的ApplicationMaster被分布到不同的节点上，因此它们之间不会相互影响。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/04/02/md_大数据/大数据008——YARN/#more" rel="contents">
@@ -1354,7 +1352,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  17
+                  16
                 </span>
               
             </div>
@@ -1376,8 +1374,8 @@
 
       
         
-          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><pre><code>ZooKeeper是一个分布式的，开源的分布式应用程序协调服务**，是[Google](http://baike.baidu.com/item/Google)的Chubby一个[开源](http://baike.baidu.com/item/%E5%BC%80%E6%BA%90)的实现，**是Hadoop和Hbase的重要组件。
-</code></pre><p>​    目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个为分布式应用提供<strong>一致性服务</strong>的软件，<strong>提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</strong></p>
+          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.  前言"></a>1.  前言</h2><h3 id="1-1-Zookeeper简介"><a href="#1-1-Zookeeper简介" class="headerlink" title="1.1 Zookeeper简介"></a>1.1 Zookeeper简介</h3><p>ZooKeeper是一个分布式的，开源的分布式应用程序协调服务<strong>，是<a href="http://baike.baidu.com/item/Google" target="_blank" rel="noopener">Google</a>的Chubby一个<a href="http://baike.baidu.com/item/%E5%BC%80%E6%BA%90" target="_blank" rel="noopener">开源</a>的实现，</strong>是Hadoop和Hbase的重要组件。</p>
+<p>目前，大部分应用需要开发私有的一个主控、协调器或控制器的协调程序来管理物理分布的子进程（如资源、任务分配等）。而协调程序的反复编写浪费，且难以形成通用、伸缩性好的协调器,所以zookeeper应用而生。它是一个为分布式应用提供<strong>一致性服务</strong>的软件，<strong>提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</strong></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/03/30/md_大数据/大数据006——Zookeeper/#more" rel="contents">

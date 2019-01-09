@@ -81,21 +81,21 @@
 
 
 
-<meta name="description" content="1. YARN概述YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。   YARN总体上仍然是m">
+<meta name="description" content="1. YARN概述YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。  YARN总体上仍然是ma">
 <meta name="keywords" content="Linux,大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据008——YARN">
 <meta property="og:url" content="http://yoursite.com/2016/04/02/md_大数据/大数据008——YARN/index.html">
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
-<meta property="og:description" content="1. YARN概述YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。   YARN总体上仍然是m">
+<meta property="og:description" content="1. YARN概述YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。  YARN总体上仍然是ma">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/img/大数据008——YARN/001.png">
 <meta property="og:image" content="http://yoursite.com/img/大数据008——YARN/002.png">
 <meta property="og:image" content="http://yoursite.com/img/大数据008——YARN/003.png">
-<meta property="og:updated_time" content="2019-01-08T14:15:42.342Z">
+<meta property="og:updated_time" content="2019-01-09T01:27:07.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据008——YARN">
-<meta name="twitter:description" content="1. YARN概述YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。   YARN总体上仍然是m">
+<meta name="twitter:description" content="1. YARN概述YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。  YARN总体上仍然是ma">
 <meta name="twitter:image" content="http://yoursite.com/img/大数据008——YARN/001.png">
 
 
@@ -455,10 +455,9 @@
       
 
       
-        <h2 id="1-YARN概述"><a href="#1-YARN概述" class="headerlink" title="1. YARN概述"></a>1. YARN概述</h2><pre><code>YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。
-
- YARN总体上仍然是master/slave结构，在整个资源管理框架中，resourcemanager为master，nodemanager是slave。Resourcemanager负责对各个nademanger上资源进行统一管理和调度。当用户提交一个应用程序时，需要提供一个用以跟踪和管理这个程序的ApplicationMaster，它负责向ResourceManager申请资源，并要求NodeManger启动可以占用一定资源的任务。由于不同的ApplicationMaster被分布到不同的节点上，因此它们之间不会相互影响。
-</code></pre><a id="more"></a>
+        <h2 id="1-YARN概述"><a href="#1-YARN概述" class="headerlink" title="1. YARN概述"></a>1. YARN概述</h2><p>YARN是Hadoop 2.0中的资源管理系统，它的基本设计思想是将MRv1中的JobTracker拆分成了两个独立的服务：一个全局的资源管理器ResourceManager和每个应用程序特有的ApplicationMaster。其中ResourceManager负责整个系统的资源管理和分配，而ApplicationMaster负责单个应用程序的管理。</p>
+<p> YARN总体上仍然是master/slave结构，在整个资源管理框架中，resourcemanager为master，nodemanager是slave。Resourcemanager负责对各个nademanger上资源进行统一管理和调度。当用户提交一个应用程序时，需要提供一个用以跟踪和管理这个程序的ApplicationMaster，它负责向ResourceManager申请资源，并要求NodeManger启动可以占用一定资源的任务。由于不同的ApplicationMaster被分布到不同的节点上，因此它们之间不会相互影响。</p>
+<a id="more"></a>
 <h2 id="2-YARN产生背景"><a href="#2-YARN产生背景" class="headerlink" title="2. YARN产生背景"></a>2. YARN产生背景</h2><p>在hadoop 1.x版本中MapReduce架构如下图所示：</p>
 <p><img src="/img/大数据008——YARN/001.png" alt=""></p>
 <p>存在如下缺点：</p>

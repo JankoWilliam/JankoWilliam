@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/003.jpg">
 <meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/004.PNG">
 <meta property="og:image" content="http://yoursite.com/img/大数据007——HDFS2.0/005.PNG">
-<meta property="og:updated_time" content="2019-01-08T13:24:41.561Z">
+<meta property="og:updated_time" content="2019-01-09T01:28:02.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据007——HDFS2.0">
 <meta name="twitter:description" content="1. Hadoop 2.01.1 Hadoop1.0于Hadoop2.0的区别1）.  从整体框架来说 ​    a. Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。 ​    b. Hadoop2.0">
@@ -501,7 +501,7 @@
 </li>
 </ul>
 <p>​       如果ZKFC所在机器的Namenode健康状态良好，并且用于选举的znode锁未被其他节点持有，则ZKFC会尝试获取锁,成功获取这个排它锁就代表获得选举，获得选举之后负责故障转移，如果有必要，会fencing掉之前的namenode使其不可用，然后将自己的namenode切换为Active状态。</p>
-<h2 id="3-Hadoop2-X-HA搭建"><a href="#3-Hadoop2-X-HA搭建" class="headerlink" title="3. Hadoop2.X HA搭建"></a>3. Hadoop2.X HA搭建</h2><p>四台linux虚拟机：hadoop1，hadoop2，hadoop3，hadoop4</p>
+<h2 id="3-Hadoop2-X-HA搭建"><a href="#3-Hadoop2-X-HA搭建" class="headerlink" title="3. Hadoop2.X HA搭建"></a>3. Hadoop2.X HA搭建</h2><p>三台linux虚拟机：node01、node02、node03；</p>
 <table>
 <thead>
 <tr>
