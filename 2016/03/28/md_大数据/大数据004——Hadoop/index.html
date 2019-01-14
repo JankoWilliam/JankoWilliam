@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://yoursite.com/img/大数据004——Hadoop/Hadoop008.PNG">
 <meta property="og:image" content="http://yoursite.com/img/大数据004——Hadoop/Hadoop009.png">
 <meta property="og:image" content="http://yoursite.com/img/大数据004——Hadoop/Hadoop010.png">
-<meta property="og:updated_time" content="2019-01-09T05:06:31.884Z">
+<meta property="og:updated_time" content="2019-01-13T11:44:59.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据004——Hadoop">
 <meta name="twitter:description" content="1. 前言Hadoop是一个开源框架，它允许在整个集群使用简单编程模型计算机的分布式环境存储并处理大数据。它的目的是从单一的服务器到上千台机器的扩展，每一个台机都可以提供本地计算和存储。 1.1 什么是大数据？大数据是不能用传统的计算技术处理的大型数据集的集合。它不是一个单一的技术或工具，而是涉及的业务和技术的许多领域。大数据包含通过不同设备和应用程序所产生的数据。如这些领域：黑匣子数据、社会化媒">
@@ -609,7 +609,7 @@
 <li>另一个队列，“Ack Queue”是由 DFSOutputStream 保持存储，它们是 DataNodes 等待确认的数据包。</li>
 <li>一旦确认在队列中的分组从所有 DataNodes 已接收在管道，它从 ‘Ack Queue’ 删除。在任何 DataNode 发生故障时，从队列中的包重新用于操作。</li>
 <li>在客户端的数据写入完成后，它会调用close()方法(第9步图中)，调用close()结果进入到清理缓存剩余数据包到管道之后等待确认。</li>
-<li>一旦收到最终确认，NameNode 连接告诉它该文件的写操作完成。</li>
+<li>一旦收到最终确认， 连接告诉NameNode该文件的写操作完成。</li>
 </ol>
 <h2 id="3-Hadoop安装（伪分布式搭建）"><a href="#3-Hadoop安装（伪分布式搭建）" class="headerlink" title="3. Hadoop安装（伪分布式搭建）"></a>3. Hadoop安装（伪分布式搭建）</h2><h3 id="3-1-jdk安装，配置环境变量"><a href="#3-1-jdk安装，配置环境变量" class="headerlink" title="3.1 jdk安装，配置环境变量"></a>3.1 jdk安装，配置环境变量</h3><p>jdk安装略过，配置环境变量（局部变量版）：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 html]# vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
@@ -873,7 +873,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -895,7 +895,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -989,7 +989,7 @@
   <span class="post-meta-divider">|</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共52.4k字</span>
+  <span class="post-count">博客全站共61.3k字</span>
 </div>
 
   <span class="post-meta-divider">|</span>
