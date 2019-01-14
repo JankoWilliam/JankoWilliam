@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="Hadoop中的MapReduce库支持集中不同的格式的输入数据。例如，文本模式的输入数据的每一行被视为一个key/value键值对。key是文件的偏移量，value是那一行的内容。另一种常见的格式是以key进行排序来存储key/value键值对的序列。每种输入类型的实现都必须能够把数据分割成数据片段，并能够由单独的Map任务来对数据片段进行后续处理。 1. 输入格式-InputFormat当运行">
+<meta name="description" content="Hadoop中的MapReduce库支持集中不同的格式的输入数据。例如，文本模式的输入数据的每一行被视为一个key/value键值对。key是文件的偏移量，value是那一行的内容。另一种常见的格式是以key进行排序来存储key/value键值对的序列。每种输入类型的实现都必须能够把数据分割成数据片段，并能够由单独的Map任务来对数据片段进行后续处理。">
 <meta name="keywords" content="Linux,大数据,Hadoop,MapReduce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop源码分析——MapReduce输入和输出">
 <meta property="og:url" content="http://yoursite.com/2016/04/08/md_大数据/Hadoop源码分析——MapReduce输入和输出/index.html">
 <meta property="og:site_name" content="伯纳乌VS斯坦普斯">
-<meta property="og:description" content="Hadoop中的MapReduce库支持集中不同的格式的输入数据。例如，文本模式的输入数据的每一行被视为一个key/value键值对。key是文件的偏移量，value是那一行的内容。另一种常见的格式是以key进行排序来存储key/value键值对的序列。每种输入类型的实现都必须能够把数据分割成数据片段，并能够由单独的Map任务来对数据片段进行后续处理。 1. 输入格式-InputFormat当运行">
+<meta property="og:description" content="Hadoop中的MapReduce库支持集中不同的格式的输入数据。例如，文本模式的输入数据的每一行被视为一个key/value键值对。key是文件的偏移量，value是那一行的内容。另一种常见的格式是以key进行排序来存储key/value键值对的序列。每种输入类型的实现都必须能够把数据分割成数据片段，并能够由单独的Map任务来对数据片段进行后续处理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-10T14:56:29.475Z">
+<meta property="og:updated_time" content="2019-01-14T14:20:00.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop源码分析——MapReduce输入和输出">
-<meta name="twitter:description" content="Hadoop中的MapReduce库支持集中不同的格式的输入数据。例如，文本模式的输入数据的每一行被视为一个key/value键值对。key是文件的偏移量，value是那一行的内容。另一种常见的格式是以key进行排序来存储key/value键值对的序列。每种输入类型的实现都必须能够把数据分割成数据片段，并能够由单独的Map任务来对数据片段进行后续处理。 1. 输入格式-InputFormat当运行">
+<meta name="twitter:description" content="Hadoop中的MapReduce库支持集中不同的格式的输入数据。例如，文本模式的输入数据的每一行被视为一个key/value键值对。key是文件的偏移量，value是那一行的内容。另一种常见的格式是以key进行排序来存储key/value键值对的序列。每种输入类型的实现都必须能够把数据分割成数据片段，并能够由单独的Map任务来对数据片段进行后续处理。">
 
 
 
@@ -452,6 +452,7 @@
 
       
         <p>Hadoop中的MapReduce库支持集中不同的格式的输入数据。例如，文本模式的输入数据的每一行被视为一个key/value键值对。key是文件的偏移量，value是那一行的内容。另一种常见的格式是以key进行排序来存储key/value键值对的序列。每种输入类型的实现都必须能够把数据分割成数据片段，并能够由单独的Map任务来对数据片段进行后续处理。</p>
+<a id="more"></a>
 <h2 id="1-输入格式-InputFormat"><a href="#1-输入格式-InputFormat" class="headerlink" title="1. 输入格式-InputFormat"></a>1. 输入格式-InputFormat</h2><p>当运行一个MapReduce作业的时候，我们需要为作业制定它的输入格式。InputFormat作为Hadoop作业的所有数入格式的抽象基类，它描述了作业的输入需要满足的规范细节。</p>
 <h3 id="1-1-InputFormate抽象类"><a href="#1-1-InputFormate抽象类" class="headerlink" title="1.1 InputFormate抽象类"></a>1.1 InputFormate抽象类</h3><p>InputFormat所在的包为org.apache.hadoop.mapredce，在该抽象类中定义了连个抽象类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 该方法的主要作用是将所有的输入文件分割成逻辑上的多个分片InputSplit,每个InputSplit通过输入文件路  	* 径、开始位置和偏移量三个信息进行来唯一标识。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> List&lt;InputSplit&gt; <span class="title">getSplits</span><span class="params">(JobContext context)</span> <span class="keyword">throws</span> IOException, InterruptedException</span>;</span><br></pre></td></tr></table></figure>
